@@ -23,6 +23,7 @@ if __name__ == '__main__':
             ruta = input("Ingrese la ruta en la que se encuentra el peaje")
             km = input("Ingrse el kilomnetro en el que se encuentra el peaje")
             telefono = input("Ingrese el telefono del peaje")
+            ingresar_peaje(nombre_peaje, ruta, km, telefono)
             
       if opcion == 5:
          estado = False
