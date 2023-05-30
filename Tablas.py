@@ -1,15 +1,15 @@
 from Config import *
 
-class tarifa (BaseModel):
-    id_tarifa = IntegerField()
-    tipo_vehiculo = CharField(max_length=30)
-    valor = DecimalField(max_digits=10, decimal_places=2)
-    fecha_vigencia = DateField()
-    class Meta:
-       primary_key = CompositeKey('id_tarifa', 'fecha_vigencia')
-
 class tipo_vehiculo (BaseModel):
    tipo = CharField(max_length=30, primary_key=True)
+
+class tarifa (BaseModel):
+   id_tarifa = IntegerField()
+   tipo_vehiculo = ForeignKeyField(tipo_vehiculo) #No me toma el foreign key
+   valor = DecimalField(max_digits=10, decimal_places=2)
+   fecha_vigencia = DateField()
+   class Meta:
+      primary_key = CompositeKey('id_tarifa', 'fecha_vigencia')
 
 class peaje(BaseModel):
    nombre = CharField(max_length=30, primary_key=True)
@@ -89,7 +89,7 @@ class credito(BaseModel):
 
 class debito(BaseModel):
    matricula = ForeignKeyField(vehiculo)
-   nombre_peaje = ForeignKeyField(peaje)
+   nombre_peaje = ForeignKeyField(ventanilla)
    nro_ventanilla = ForeignKeyField(ventanilla)
    fecha_hora_debito = DateTimeField()
    importe_debito = DecimalField(max_digits=10, decimal_places=2)
