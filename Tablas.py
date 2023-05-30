@@ -98,6 +98,4 @@ class debito(BaseModel):
 
    @property
    def ventanilla(self):
-      return ventanilla.get_or_none(
-            ventanilla.nro_ventanilla == self.nro_ventanilla,
-            ventanilla.nombre_peaje == self.nombre_peaje)
+      return ventanilla.get_or_none(ventanilla.nro == self.nro_ventanilla,ventanilla.nombre_peaje == self.nombre_peaje)
