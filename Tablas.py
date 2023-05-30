@@ -25,7 +25,12 @@ class cuenta(BaseModel):
 class propietario(BaseModel):
    id_propietario = IntegerField(primary_key=True)
    tipo_propietario = CharField (max_length=30)
+
+class cuenta_propietario(BaseModel):
+   id_propietario = ForeignKeyField(propietario)
    nro_cuenta = ForeignKeyField(cuenta)
+   class Meta:
+      primary_key = CompositeKey('id_propietario', 'nro_cuenta')
 
 class persona (BaseModel):
    dni = CharField(max_length=50, primary_key=True)
