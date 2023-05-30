@@ -2,8 +2,7 @@ from Config import *
 from Tablas import *
         
 def create_tables():
-   psql_db.create_tables([peaje, propietario, persona, vehiculo, ventanilla, cuenta, empresa, propietario_tiene_vehiculo, persona_pariente, bonificacion, credito, debito, tipo_vehiculo, tarifa])
-
+   psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito])
 
 db_connect()
 create_tables()
