@@ -99,4 +99,3 @@ class debito(BaseModel):
    importe_debito = DecimalField(max_digits=10, decimal_places=2)
    class Meta:
       primary_key = CompositeKey('matricula', 'fecha_hora_debito')
-      constraints = [SQL('FOREIGN KEY (matricula) REFERENCES vehiculo(matricula)'),SQL('FOREIGN KEY (nombre_peaje, nro_ventanilla) REFERENCES ventanilla(nombre_peaje, nro)')]
