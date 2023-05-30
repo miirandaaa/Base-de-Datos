@@ -19,10 +19,10 @@ while estado:
 
       if ingresar == 5:
          nombre_peaje= input("Ingrese el nombre del peaje: ")
-         ruta = input("Ingrese la ruta en la que se encuentra el peaje: ")
-         km = input("Ingrse el kilomnetro en el que se encuentra el peaje: ")
+         ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
+         km = int(input("Ingrse el kilomnetro en el que se encuentra el peaje: "))
          telefono = input("Ingrese el telefono del peaje: ")
-         ingresar_peaje(nombre_peaje, ruta, km, telefono)
+         peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
          
    if opcion == 5:
       estado = False
