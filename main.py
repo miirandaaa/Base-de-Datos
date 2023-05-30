@@ -8,4 +8,4 @@ db_connect()
 create_tables()
 
 if __name__ == '__main__':
-   opcion = print ("Ingrese una opcion: nl\ Ingresar ")
+   opcion = print ("Ingrese una opcion: nl/ Ingresar ")

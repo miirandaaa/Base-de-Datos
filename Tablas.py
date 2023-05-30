@@ -97,8 +97,6 @@ class debito(BaseModel):
    nro_ventanilla = SmallIntegerField()
    fecha_hora_debito = DateTimeField()
    importe_debito = DecimalField(max_digits=10, decimal_places=2)
-   @property
-   def Ventanilla(self):
-      return ventanilla.get_or_none(ventanilla.nombre_peaje == self.nombre_peaje,ventanilla.nro == self.nro_ventanilla)
    class Meta:
       primary_key = CompositeKey('matricula', 'fecha_hora_debito')
+      constraints = [SQL('FOREIGN KEY (matricula) REFERENCES vehiculo(matricula)'),SQL('FOREIGN KEY (nombre_peaje, nro_ventanilla) REFERENCES ventanilla(nombre_peaje, nro)')]
