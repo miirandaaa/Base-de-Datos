@@ -5,7 +5,7 @@ class tipo_vehiculo (BaseModel):
 
 class tarifa (BaseModel):
    id_tarifa = IntegerField()
-   tipo_vehiculo = ForeignKeyField(tipo_vehiculo) #No me toma el foreign key
+   tipo_vehiculo = ForeignKeyField(tipo_vehiculo)
    valor = DecimalField(max_digits=10, decimal_places=2)
    fecha_vigencia = DateField()
    class Meta:
@@ -16,7 +16,6 @@ class peaje(BaseModel):
    ruta = SmallIntegerField()
    km = SmallIntegerField()
    telefono_admin = IntegerField()
-   #falta setear ruta,km como unique ambas en conjunto CONSTRAINT uk_peake UNIQUE (ruta, km);
 
 class cuenta(BaseModel):
    nro_cuenta = IntegerField(primary_key=True)
@@ -93,9 +92,8 @@ class debito(BaseModel):
    nro_ventanilla = SmallIntegerField()
    fecha_hora_debito = DateTimeField()
    importe_debito = DecimalField(max_digits=10, decimal_places=2)
+   @property
+   def Ventanilla(self):
+      return ventanilla.get_or_none(ventanilla.nombre_peaje == self.nombre_peaje,ventanilla.nro == self.nro_ventanilla)
    class Meta:
       primary_key = CompositeKey('matricula', 'fecha_hora_debito')
-
-   @property
-   def ventanilla(self):
-      return ventanilla.get_or_none(ventanilla.nro == self.nro_ventanilla,ventanilla.nombre_peaje == self.nombre_peaje)
