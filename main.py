@@ -6,7 +6,7 @@ from Peaje import *
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,cuenta_propietario])
 
-#db_connect()
+db_connect()
 #create_tables()
 
 if __name__ == '__main__':
@@ -19,10 +19,10 @@ if __name__ == '__main__':
             pass
 
          if ingresar == 5:
-            nombre_peaje= input("Ingrese el nombre del peaje")
-            ruta = input("Ingrese la ruta en la que se encuentra el peaje")
-            km = input("Ingrse el kilomnetro en el que se encuentra el peaje")
-            telefono = input("Ingrese el telefono del peaje")
+            nombre_peaje= input("Ingrese el nombre del peaje: ")
+            ruta = input("Ingrese la ruta en la que se encuentra el peaje: ")
+            km = input("Ingrse el kilomnetro en el que se encuentra el peaje: ")
+            telefono = input("Ingrese el telefono del peaje: ")
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
             
       if opcion == 5:
