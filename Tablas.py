@@ -40,6 +40,7 @@ class vehiculo(BaseModel):
    matricula = CharField(max_length = 6, primary_key=True)
    tag_rfid = CharField(max_length = 8, unique=True)
    marca = CharField(max_length = 30)
+   modelo = CharField(max_length = 30)
    color = CharField(max_length = 20)
    tipo_vehiculo = ForeignKeyField(tipo_vehiculo)
 

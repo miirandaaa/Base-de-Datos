@@ -11,11 +11,12 @@ from Personas import *
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
 
-
 if __name__ == '__main__':
    db_connect()
    create_tables()
+
    estado = True
+
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Salir \nOpcion: "))
       if opcion == 1:
@@ -29,17 +30,21 @@ if __name__ == '__main__':
             email = input("Ingrese el email del propietario: ")
             direccion = input("Ingrese la direccion del propietario: ")
             ingresar_persona_propietario(id_propietario, dni, nombres, apellidos, celular, email, direccion)
+         
          if ingresar == 2:
             pass
+         
          if ingresar == 3:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
             fecha_cuenta = date(input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): "))
             id_prop = int(input("Ingrese el id del propietario: "))
             ingresar_cuenta(nro_cuenta, fecha_cuenta, id_prop)
+         
          if ingresar == 4:
             matricula = int(input("Ingrese la matricula del vehiculo: "))
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
             marca = input("Ingrese la marca del vehiculo: ")
+            modelo = input("Ingrese el modelo del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
             tipo = input("Ingrese el tipo de vehiculo: ")
             ingresar_vehiculo(matricula, tag_rfid, marca, color, tipo)
