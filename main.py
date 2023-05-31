@@ -5,6 +5,7 @@ from Personas import *
 from Ventanilla import *
 from datetime import date
 from Cuenta import *
+from Personas import ingresar_persona_propietario
 from Personas import *
 from Vehiculo import *
         
@@ -21,14 +22,13 @@ if __name__ == '__main__':
       if opcion == 1:
          ingresar = int(input("\n1 Ingresar Persona \n2 Ingrsar Propietario \n3 Ingresar Cuenta \n4 Ingresar Vehiculo \n5 Ingresar Peaje \n6 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
-            id_propietario = int(input("Ingrese el id del propietario: "))
             dni = int(input("Ingrese el dni del propietario: "))
             nombres = input("Ingrese los nombres del propietario: ")
             celular = int(input("Ingrese el celular del propietario: "))
             apellidos = input("Ingrese los apellidos del propietario: ")
             email = input("Ingrese el email del propietario: ")
             direccion = input("Ingrese la direccion del propietario: ")
-            ingresar_persona_propietario(id_propietario, dni, nombres, apellidos, celular, email, direccion)
+            ingresar_persona_propietario(dni, nombres, apellidos, celular, email, direccion)
          if ingresar == 2:
             pass
          if ingresar == 3:
