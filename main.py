@@ -80,7 +80,6 @@ if __name__ == '__main__':
 
    # - Consultar Personas
    # - Consultar Propietario
-   # - Consultar Cuenta
    # - Consultar Vehículo
 
 
