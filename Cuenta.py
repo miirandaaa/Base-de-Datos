@@ -11,10 +11,12 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
             else:
                 if propietario.get_or_none(propietario.id_propietario == id_prop):
                     cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta = fecha_cuenta, saldo = 0, id_propietario = id_prop)
+                    psql_db.commit()
                     print("Cuenta creada correctamente.")
                 else:
                     print("El propietario ingresado no existe.")
         except IntegrityError:
+            psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
 #CORROBORAR QUE FUNCIONE

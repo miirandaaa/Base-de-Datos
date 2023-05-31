@@ -11,7 +11,9 @@ def ingresar_persona_propietario(dni, nombres, apellidos, celular, email, direcc
             else:
                 propietario.create(tipo_propietario="persona")
                 persona.create(dni=dni, nombres=nombres, apellidos=apellidos, celular=celular, email=email, direccion=direccion)
+                psql_db.commit()
                 print("Persona agregada correctamente.")
         except IntegrityError:
+            psql_db.rollback()
             print("Error: No se pudo crear la persona debido a una violación de restricción única.")
     #metodos a implementar agregar persona y propietario y vehiculo

@@ -14,7 +14,7 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
             else:
                 print("El peaje especificado no existe.")
         except IntegrityError:
-            psql_db.roll_back()
+            psql_db.rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
 #HAY QUE ARREGLAR ESTO

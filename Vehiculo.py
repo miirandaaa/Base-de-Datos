@@ -17,7 +17,7 @@ def ingresar_vehiculo(matricula, tag_rfid, marca, modelo, color, tipo):
                 else:
                     print("El tipo de vehiculo ingresado no existe.")
         except IntegrityError:
-            psql_db.roll_back()
+            psql_db.rollback()
             print("Error: No se pudo crear el vehiculo debido a una violación de restricción única.")
 
 def consultar_vehiuclo(vehiculo_aconsultar):
