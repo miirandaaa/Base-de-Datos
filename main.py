@@ -27,7 +27,7 @@ if __name__ == '__main__':
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
             marca = input("Ingrese la marca del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
-            tipo_vehiculo = int(input("Ingrese el tipo de vehiculo: "))
+            tipo = input("Ingrese el tipo de vehiculo: ")
          if ingresar == 5:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
