@@ -37,10 +37,7 @@ if __name__ == '__main__':
          if ingresar == 6:
             nombre_p = input("Ingrese el nombre del peaje: ")
             numero_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
-            tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
-            while tiene_rfid != 1 and tiene_rfid != 0:
-               print("Ingrese un valor valido")
-               tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
+            tiene_rfid = input("Ingrese True si la ventanilla tiene rfid o False si no lo tiene: ")
             ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
             
       if opcion == 5:
