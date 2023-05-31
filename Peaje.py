@@ -12,7 +12,7 @@ def ingresar_peaje(nombre_peaje, ruta, km, telefono):
                 peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
                 psql_db.commit()
                 print("Peaje creado correctamente.")
-        except IntegrityError:
+        except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
@@ -21,5 +21,5 @@ def consultar_peaje(peaje_aconsultar):
         try:
             peaje_querido = peaje.get_by_id(peaje_aconsultar)
             print(f"Nombre: {peaje_querido.nombre} \nRuta: {peaje_querido.ruta} \nKm: {peaje_querido.km} \nTelefono: {peaje_querido.telefono_admin}")
-        except:
+        except IntegrityError():
             print("Error: No se pudo consultar el peaje debido a una violación de restricción única.")

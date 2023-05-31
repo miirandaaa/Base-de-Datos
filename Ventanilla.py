@@ -13,7 +13,7 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
                 print("Ventanilla creada correctamente.")
             else:
                 print("El peaje especificado no existe.")
-        except IntegrityError:
+        except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
@@ -26,6 +26,6 @@ def consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar):
             else:
                 tiene = "no"
             print(f"Nombre: {ventanilla_querida.nombre_peaje} \nNumero: {ventanilla_querida.nro} \nTiene RFID: {tiene}")
-        except:
+        except IntegrityError():
             print("Error: No se pudo consultar la ventanilla debido a una violación de restricción única.")
         

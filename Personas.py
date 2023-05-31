@@ -13,7 +13,7 @@ def ingresar_persona_propietario(id_prop, dni, nombres, apellidos, celular, emai
                 persona.create(dni=dni, id_propietario=id_prop, nombres=nombres, apellidos=apellidos, celular=celular, email=email, direccion=direccion)
                 psql_db.commit()
                 print("Persona agregada correctamente.")
-        except IntegrityError:
+        except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo crear la persona debido a una violación de restricción única.")
 
@@ -22,5 +22,5 @@ def consultar_persona(persona_aconsultar):
         try:
             persona_querida = persona.get_by_id(persona_aconsultar)
             print(f"DNI: {persona_querida.dni} \nNombres: {persona_querida.nombres} \nApellidos: {persona_querida.apellidos} \nCelular: {persona_querida.celular} \nEmail: {persona_querida.email} \nDireccion: {persona_querida.direccion}")
-        except:
+        except IntegrityError():
             print("Error: No se pudo consultar la persona debido a una violación de restricción única.")
