@@ -25,16 +25,16 @@ if __name__ == '__main__':
             id_prop = int(input("Ingrese el id del propietario: "))
             dni = int(input("Ingrese el dni del propietario: "))
             nombres = input("Ingrese los nombres del propietario: ")
-            celular = int(input("Ingrese el celular del propietario: "))
             apellidos = input("Ingrese los apellidos del propietario: ")
+            celular = int(input("Ingrese el celular del propietario: "))
             email = input("Ingrese el email del propietario: ")
             direccion = input("Ingrese la direccion del propietario: ")
-            ingresar_persona_propietario(dni, nombres, apellidos, celular, email, direccion)
+            ingresar_persona_propietario(id_prop, dni, nombres, apellidos, celular, email, direccion)
          if ingresar == 2:
             pass
          if ingresar == 3:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
-            fecha_cuenta = date(input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): "))
+            fecha_cuenta = input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): ")
             id_prop = int(input("Ingrese el id del propietario: "))
             ingresar_cuenta(nro_cuenta, fecha_cuenta, id_prop)
          if ingresar == 4:

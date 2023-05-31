@@ -2,6 +2,7 @@ from main import *
 from Tablas import *
 from Config import *
 from Peaje import *
+import datetime
 
 def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
     with psql_db.atomic():
@@ -10,7 +11,8 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
                 print("La cuenta ingresada ya existe.")
             else:
                 if propietario.get_or_none(propietario.id_propietario == id_prop):
-                    cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta = fecha_cuenta, saldo = 0, id_propietario = id_prop)
+                    date_data = fecha_cuenta.split("-")
+                    cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=datetime.date(date_data[0],date_data[1],date_data[2]) , saldo = 0, id_propietario = id_prop)
                     psql_db.commit()
                     print("Cuenta creada correctamente.")
                 else:
