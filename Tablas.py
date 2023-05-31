@@ -8,8 +8,6 @@ class tarifa (BaseModel):
    tipo_vehiculo = ForeignKeyField(tipo_vehiculo)
    valor = DecimalField(max_digits=10, decimal_places=2)
    fecha_vigencia = DateField()
-   class Meta:
-      primary_key = CompositeKey('id_tarifa', 'fecha_vigencia')
 
 class peaje(BaseModel):
    nombre = CharField(max_length=30, primary_key=True)
@@ -18,7 +16,7 @@ class peaje(BaseModel):
    telefono_admin = CharField(max_length=30)
 
 class propietario(BaseModel):
-   id_propietario = AutoField(primary_key=True)
+   id_propietario = AutoField()
    tipo_propietario = CharField(max_length=30)
 
 class cuenta(BaseModel):
