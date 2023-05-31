@@ -17,4 +17,12 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
         except IntegrityError:
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
+#CORROBORAR QUE FUNCIONE
+def consultar_cuenta(cuenta_aconsultar):
+    with psql_db.atomic():
+        try:
+            cuenta_querida = cuenta.get_by_id(cuenta_aconsultar)
+            print(f"Nro Cuenta: {cuenta_querida.nro_cuenta}, Fecha Creacion: {cuenta_querida.fecha_creacion_cuenta}, Saldo: {cuenta_querida.saldo}, Id Propietario: {cuenta_querida.id_propietario}")
+        except:
+            print("Error: No se pudo consultar la cuenta debido a una violación de restricción única.")
     

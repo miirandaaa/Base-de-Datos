@@ -17,6 +17,7 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
             psql_db.roll_back()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
+#HAY QUE ARREGLAR ESTO
 def consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar):
     with psql_db.atomic():
         ventanilla_querida = ventanilla.get(peaje_aconsultar, ventanilla_aconsultar)
