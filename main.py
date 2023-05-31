@@ -80,14 +80,9 @@ if __name__ == '__main__':
       if opcion == 5:
          estado = False
 
-   # - Consultar Personas
    # - Consultar Propietario
-   # - Consultar Vehículo
-
-
-   # - Ingresar Persona
+   
    # - Ingresar Propietario
-   # - Ingresar Cuenta
 
    # - Modificar Persona
    # - Modificar Propietario
