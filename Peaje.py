@@ -1,7 +1,15 @@
 from main import *
 from Tablas import *
 from Config import *
+from peewee import *
 
 def ingresar_peaje(nombre_peaje, ruta, km, telefono):
-    with psql_db.atomic():
-        peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
+     with psql_db.atomic():
+        try:
+            if peaje.get_or_none(peaje.nombre == nombre_peaje):
+                print("El peaje ingresado ya existe.")
+            else:
+                peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
+                print("Peaje creado correctamente.")
+        except IntegrityError:
+            print("Error: No se pudo crear el peaje debido a una violación de restricción única.")

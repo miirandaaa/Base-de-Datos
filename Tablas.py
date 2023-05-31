@@ -51,7 +51,7 @@ class vehiculo(BaseModel):
 class ventanilla(BaseModel):
    nombre_peaje = ForeignKeyField(peaje)
    nro = SmallIntegerField()
-   tiene_rfid = BooleanField()
+   tiene_rfid = SmallIntegerField()
    class Meta:
       primary_key = CompositeKey('nombre_peaje', 'nro')
 
