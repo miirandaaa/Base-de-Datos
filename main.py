@@ -2,6 +2,7 @@ from Config import *
 from Tablas import *
 from Personas import *
 from Peaje import *
+from Ventanilla import *
         
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,cuenta_propietario])
@@ -17,13 +18,27 @@ if __name__ == '__main__':
          ingresar = int(input("\n1 Ingresar Persona \n2 Ingrsar Propietario \n3 Ingresar Cuenta \n4 Ingresar Vehiculo \n5 Ingresar Peaje \n6 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
             pass
-
+         if ingresar == 2:
+            pass
+         if ingresar == 3:
+            pass
+         if ingresar == 4:
+            matricula = int(input("Ingrese la matricula del vehiculo: "))
+            tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
+            marca = input("Ingrese la marca del vehiculo: ")
+            color = input("Ingrese el color del vehiculo: ")
+            tipo_vehiculo = int(input("Ingrese el tipo de vehiculo: "))
          if ingresar == 5:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
             km = int(input("Ingrse el kilomnetro en el que se encuentra el peaje: "))
             telefono = input("Ingrese el telefono del peaje: ")
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
+         if ingresar == 6:
+            nombre_p = input("Ingrese el nombre del peaje: ")
+            numero_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
+            tiene_rfid = input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: ")
+            ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
             
       if opcion == 5:
          estado = False
