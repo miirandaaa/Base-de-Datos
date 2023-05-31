@@ -11,6 +11,5 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
                 print("Ventanilla creada correctamente.")
             else:
                 print("El peaje especificado no existe.")
-
         except IntegrityError:
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
