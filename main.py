@@ -1,6 +1,5 @@
 from Config import *
 from Tablas import *
-from Personas import *
 from Peaje import *
 from Ventanilla import *
 from Vehiculo import *
@@ -8,7 +7,7 @@ from datetime import date
 from Cuenta import *
         
 def create_tables():
-   psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,cuenta_propietario])
+   psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
 
 
 if __name__ == '__main__':
@@ -48,7 +47,20 @@ if __name__ == '__main__':
             ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
 
       if opcion == 4:
-         pass 
+         consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
+         if consultar == 1:
+            pass
+         if consultar == 2:
+            pass
+         if consultar == 3:
+            pass
+         if consultar == 4:
+            pass
+         if consultar == 5:
+            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
+            consultar_peaje(peaje_aconsultar)
+         if consultar == 6:
+            pass
       if opcion == 5:
          estado = False
 

@@ -9,7 +9,7 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
             if cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta):
                 print("La cuenta ingresada ya existe.")
             else:
-                if propietario.get_or_none(propietario.id == id_prop):
+                if propietario.get_or_none(propietario.id_propietario == id_prop):
                     cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta = fecha_cuenta, saldo = 0, id_propietario = id_prop)
                     print("Cuenta creada correctamente.")
                 else:
