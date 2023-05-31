@@ -12,8 +12,10 @@ def ingresar_vehiculo(matricula, tag_rfid, marca, color, tipo):
                 tipo_existe = tipo_vehiculo.get_or_none(tipo_vehiculo.tipo == tipo)
                 if tipo_existe:
                     vehiculo.create(matricula=matricula, tag_rfid=tag_rfid, marca=marca, color=color, tipo_vehiculo=tipo)
+                    psql_db.commit()
                     print("Vehiculo creado correctamente.")
                 else:
                     print("El tipo de vehiculo ingresado no existe.")
         except IntegrityError:
+            psql_db.roll_back()
             print("Error: No se pudo crear el vehiculo debido a una violación de restricción única.")

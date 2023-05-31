@@ -1,6 +1,7 @@
 from Config import *
 from Tablas import *
 from Peaje import *
+from Personas import *
 from Ventanilla import *
 from Vehiculo import *
 from datetime import date
@@ -60,16 +61,17 @@ if __name__ == '__main__':
             peaje_aconsultar = input("Ingrese el nombre del peaje: ")
             consultar_peaje(peaje_aconsultar)
          if consultar == 6:
-            pass
+            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
+            ventanilla_aconsultar = int(input("Ingrese el numero de la ventanilla: "))
+            consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar)
       if opcion == 5:
          estado = False
 
-   # - Consultar Persona
+   # - Consultar Personas
    # - Consultar Propietario
    # - Consultar Cuenta
    # - Consultar Vehículo
-   # - Consultar Peaje
-   # - Consultar Ventanilla
+
 
    # - Ingresar Persona
    # - Ingresar Propietario
