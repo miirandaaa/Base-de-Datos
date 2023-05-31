@@ -1,6 +1,7 @@
 from main import *
 from Tablas import *
+from Config import *
 
 def ingresar_peaje(nombre_peaje, ruta, km, telefono):
-        if isinstance(nombre_peaje,str) and isinstance(ruta,int) and isinstance(km,int) and isinstance(telefono,int):
-              peaje.create(nombre_peaje=nombre_peaje, ruta=ruta, km=km, telefono=telefono)
+    with psql_db.atomic():
+        peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
