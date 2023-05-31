@@ -24,6 +24,6 @@ def consultar_vehiuclo(vehiculo_aconsultar):
     with psql_db.atomic():
         try:
             vehiculo_querido = vehiculo.get_by_id(vehiculo_aconsultar)
-            print(f"Matricula: {vehiculo_querido.matricula} \nTag RFID: {vehiculo_querido.tag_rfid} \nMarca: {vehiculo_querido.marca} \nColor: {vehiculo_querido.color} \nTipo Vehiculo: {vehiculo_querido.tipo_vehiculo}")
+            print(f"Matricula: {vehiculo_querido.matricula} \nTag RFID: {vehiculo_querido.tag_rfid} \nMarca: {vehiculo_querido.marca} \nModelo: {vehiculo_querido.modelo} \nColor: {vehiculo_querido.color} \nTipo Vehiculo: {vehiculo_querido.tipo_vehiculo}")
         except:
             print("Error: No se pudo consultar el vehiculo debido a una violación de restricción única.")

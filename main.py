@@ -47,7 +47,7 @@ if __name__ == '__main__':
             modelo = input("Ingrese el modelo del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
             tipo = input("Ingrese el tipo de vehiculo: ")
-            ingresar_vehiculo(matricula, tag_rfid, marca, color, tipo)
+            ingresar_vehiculo(matricula, tag_rfid, marca, modelo, color, tipo)
          if ingresar == 5:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
