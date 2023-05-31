@@ -20,6 +20,6 @@ def consultar_peaje(peaje_aconsultar):
     with psql_db.atomic():
         try:
             peaje_querido = peaje.get_by_id(peaje_aconsultar)
-            print(f"Nombre: {peaje_querido.nombre}, Ruta: {peaje_querido.ruta}, Km: {peaje_querido.km}, Telefono: {peaje_querido.telefono_admin}")
+            print(f"Nombre: {peaje_querido.nombre} \nRuta: {peaje_querido.ruta} \nKm: {peaje_querido.km} \nTelefono: {peaje_querido.telefono_admin}")
         except:
             print("Error: No se pudo consultar el peaje debido a una violación de restricción única.")

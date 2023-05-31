@@ -41,9 +41,10 @@ if __name__ == '__main__':
             matricula = int(input("Ingrese la matricula del vehiculo: "))
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
             marca = input("Ingrese la marca del vehiculo: ")
+            modelo = input("Ingrese el modelo del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
             tipo = input("Ingrese el tipo de vehiculo: ")
-            ingresar_vehiculo(matricula, tag_rfid, marca, color, tipo)
+            ingresar_vehiculo(matricula, tag_rfid, marca, modelo, color, tipo)
          if ingresar == 5:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
@@ -59,7 +60,8 @@ if __name__ == '__main__':
       if opcion == 4:
          consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
          if consultar == 1:
-            pass
+            persona_aconsultar = int(input("Ingrese el dni de la persona: "))
+            consultar_persona(persona_aconsultar)
          if consultar == 2:
             pass
          if consultar == 3:

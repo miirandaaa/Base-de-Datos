@@ -19,10 +19,13 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
 
 def consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar):
     with psql_db.atomic():
-        ventanilla_querida = ventanilla.get(nombre_peaje=peaje_aconsultar, nro=ventanilla_aconsultar)
-        if ventanilla_querida.tiene_rfid == 1:
-            tiene = "si"
-        else:
-            tiene = "no"
-        print(f"Nombre: {ventanilla_querida.nombre_peaje} \nNumero: {ventanilla_querida.nro} \nTiene RFID: {tiene}")
+        try:
+            ventanilla_querida = ventanilla.get(nombre_peaje=peaje_aconsultar, nro=ventanilla_aconsultar)
+            if ventanilla_querida.tiene_rfid == 1:
+                tiene = "si"
+            else:
+                tiene = "no"
+            print(f"Nombre: {ventanilla_querida.nombre_peaje} \nNumero: {ventanilla_querida.nro} \nTiene RFID: {tiene}")
+        except:
+            print("Error: No se pudo consultar la ventanilla debido a una violación de restricción única.")
         
