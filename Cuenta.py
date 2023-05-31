@@ -11,8 +11,9 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
                 print("La cuenta ingresada ya existe.")
             else:
                 if propietario.get_or_none(propietario.id_propietario == id_prop):
-                    date_data = fecha_cuenta.split("-")
-                    cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=datetime.date(date_data[0],date_data[1],date_data[2]) , saldo = 0, id_propietario = id_prop)
+                    data = fecha_cuenta.split("-")
+                    date = datetime.date(int(data[0]),int(data[1]),int(data[2])) 
+                    cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=date, saldo = 0, id_propietario = id_prop)
                     psql_db.commit()
                     print("Cuenta creada correctamente.")
                 else:
