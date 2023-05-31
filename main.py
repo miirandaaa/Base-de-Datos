@@ -4,6 +4,8 @@ from Personas import *
 from Peaje import *
 from Ventanilla import *
 from Vehiculo import *
+from datetime import date
+from Cuenta import *
         
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,cuenta_propietario])
@@ -18,18 +20,14 @@ if __name__ == '__main__':
       if opcion == 1:
          ingresar = int(input("\n1 Ingresar Persona \n2 Ingrsar Propietario \n3 Ingresar Cuenta \n4 Ingresar Vehiculo \n5 Ingresar Peaje \n6 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
-            id_propietario = int(input("Ingrese el id del propietario: "))
-            dni = int(input("Ingrese el dni del propietario: "))
-            nombres = input("Ingrese los nombres del propietario: ")
-            celular = int(input("Ingrese el celular del propietario: "))
-            apellidos = input("Ingrese los apellidos del propietario: ")
-            email = input("Ingrese el email del propietario: ")
-            direccion = input("Ingrese la direccion del propietario: ")
-            ingresar_persona_propietario(id_propietario, dni, nombres, apellidos, celular, email, direccion)
+            pass
          if ingresar == 2:
             pass
          if ingresar == 3:
-            pass
+            nro_cuenta = int(input("Ingrese el numero de cuenta: "))
+            fecha_cuenta = date(input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): "))
+            id_prop = int(input("Ingrese el id del propietario: "))
+            ingresar_cuenta(nro_cuenta, fecha_cuenta, id_prop)
          if ingresar == 4:
             matricula = int(input("Ingrese la matricula del vehiculo: "))
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
@@ -48,14 +46,33 @@ if __name__ == '__main__':
             numero_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
             ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
-            
+
+      if opcion == 4:
+         pass 
       if opcion == 5:
          estado = False
 
-         
-   # - Personas
-   # - Propietarios
-   # - Cuentas
-   # - Vehículos
-   # - Peajes
-   # - Ventanillas
+   # - Consultar Persona
+   # - Consultar Propietario
+   # - Consultar Cuenta
+   # - Consultar Vehículo
+   # - Consultar Peaje
+   # - Consultar Ventanilla
+
+   # - Ingresar Persona
+   # - Ingresar Propietario
+   # - Ingresar Cuenta
+
+   # - Modificar Persona
+   # - Modificar Propietario
+   # - Modificar Cuenta
+   # - Modificar Vehículo
+   # - Modificar Peaje
+   # - Modificar Ventanilla
+
+   # - Eliminar Persona
+   # - Eliminar Propietario
+   # - Eliminar Cuenta
+   # - Eliminar Vehículo
+   # - Eliminar Peaje
+   # - Eliminar Ventanilla
