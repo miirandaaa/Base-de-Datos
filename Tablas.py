@@ -16,7 +16,7 @@ class peaje(BaseModel):
    telefono_admin = CharField(max_length=30)
 
 class propietario(BaseModel):
-   id_propietario = AutoField()
+   id_propietario = IntegerField(primary_key=True)
    tipo_propietario = CharField(max_length=30)
 
 class cuenta(BaseModel):

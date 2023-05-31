@@ -10,8 +10,10 @@ def ingresar_peaje(nombre_peaje, ruta, km, telefono):
                 print("El peaje ingresado ya existe.")
             else:
                 peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
+                psql_db.commit()
                 print("Peaje creado correctamente.")
         except IntegrityError:
+            psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
 def consultar_peaje(peaje_aconsultar):
