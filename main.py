@@ -3,6 +3,7 @@ from Tablas import *
 from Personas import *
 from Peaje import *
 from Ventanilla import *
+from Vehiculo import *
         
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,cuenta_propietario])
@@ -34,7 +35,8 @@ if __name__ == '__main__':
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
             marca = input("Ingrese la marca del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
-            tipo_vehiculo = int(input("Ingrese el tipo de vehiculo: "))
+            tipo = input("Ingrese el tipo de vehiculo: ")
+            ingresar_vehiculo(matricula, tag_rfid, marca, color, tipo)
          if ingresar == 5:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
