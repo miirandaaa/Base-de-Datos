@@ -4,7 +4,7 @@ class tipo_vehiculo (BaseModel):
    tipo = CharField(max_length=30, primary_key=True)
 
 class tarifa (BaseModel):
-   id_tarifa = IntegerField()
+   id_tarifa = AutoField(primary_key=True)
    tipo_vehiculo = ForeignKeyField(tipo_vehiculo)
    valor = DecimalField(max_digits=10, decimal_places=2)
    fecha_vigencia = DateField()
@@ -15,11 +15,11 @@ class peaje(BaseModel):
    nombre = CharField(max_length=30, primary_key=True)
    ruta = SmallIntegerField()
    km = SmallIntegerField()
-   telefono_admin = IntegerField()
+   telefono_admin = CharField(max_length=30)
 
 class propietario(BaseModel):
-   id_propietario = IntegerField(primary_key=True)
-   tipo_propietario = CharField (max_length=30)
+   id_propietario = AutoField(primary_key=True)
+   tipo_propietario = CharField(max_length=30)
 
 class cuenta(BaseModel):
    nro_cuenta = IntegerField(primary_key=True)
@@ -27,7 +27,7 @@ class cuenta(BaseModel):
    saldo = DecimalField(max_digits=10, decimal_places=2, default=0)
    id_propietario = ForeignKeyField(propietario)
 
-class persona (BaseModel):
+class persona(BaseModel):
    dni = CharField(max_length=50, primary_key=True)
    id_propietario = ForeignKeyField(propietario)
    nombres = CharField(max_length=50)
@@ -37,7 +37,7 @@ class persona (BaseModel):
    direccion = CharField(max_length=50)
 
 class vehiculo(BaseModel):
-   matricula = CharField(max_length = 6, primary_key=True)
+   matricula = CharField(max_length = 20, primary_key=True)
    tag_rfid = CharField(max_length = 8, unique=True)
    marca = CharField(max_length = 30)
    modelo = CharField(max_length = 30)
