@@ -56,7 +56,26 @@ if __name__ == '__main__':
             numero_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
             ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
-
+      if opcion == 2:
+         modificar = input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: ")
+         if modificar == 1:
+            pass
+         if modificar == 2:
+            pass
+         if modificar == 3:
+            pass
+         if modificar == 4:
+            pass
+         if modificar == 5:
+            nombre = input("Ingrese el nombre del peaje a modificar: ")
+            ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
+            km = int(input("Ingrse el kilomnetro en el que se encuentra el peaje: "))
+            telefono = input("Ingrese el telefono del peaje: ")
+            modificar_peaje(nombre, ruta, km, telefono)
+         if modificar == 6:
+            pass
+      if opcion == 3:
+         pass
       if opcion == 4:
          consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
          if consultar == 1:
@@ -81,14 +100,13 @@ if __name__ == '__main__':
          estado = False
 
    # - Consultar Propietario
-   
+
    # - Ingresar Propietario
 
    # - Modificar Persona
    # - Modificar Propietario
    # - Modificar Cuenta
    # - Modificar Vehículo
-   # - Modificar Peaje
    # - Modificar Ventanilla
 
    # - Eliminar Persona
