@@ -63,7 +63,7 @@ if __name__ == '__main__':
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
             ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
       if opcion == 2:
-         modificar = input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: ")
+         modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
             pass
          if modificar == 2:
@@ -73,11 +73,19 @@ if __name__ == '__main__':
          if modificar == 4:
             pass
          if modificar == 5:
-            nombre = input("Ingrese el nombre del peaje a modificar: ")
-            ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
-            km = int(input("Ingrse el kilomnetro en el que se encuentra el peaje: "))
-            telefono = input("Ingrese el telefono del peaje: ")
-            modificar_peaje(nombre, ruta, km, telefono)
+            mod = int(input("\n1 Modificar Ruta \n2 Modificar Km \n3 Modificar Telefono \nOpcion: "))
+            nombre = input("Ingrese el nombre del peaje que desea modificar: ")
+            if mod == 1:
+               nueva_ruta = int(input("Ingrese la nueva ruta: "))
+               modificar_peaje(nombre, nueva_ruta, 1)
+            if mod == 2:
+               nuevo_km = int(input("Ingrese el nuevo km: "))
+               modificar_peaje(nombre, nuevo_km, 2)
+            if mod == 3:
+               nuevo_telefono = input("Ingrese el nuevo telefono: ")
+               modificar_peaje(nombre, nuevo_telefono, 3)
+            print("Peaje modificado correctamente.")
+            psql_db.commit()
          if modificar == 6:
             pass
       if opcion == 3:

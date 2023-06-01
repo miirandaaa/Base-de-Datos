@@ -24,15 +24,18 @@ def consultar_peaje(peaje_aconsultar):
         except IntegrityError():
             print("Error: No se pudo consultar el peaje debido a una violación de restricción única.")
 
-def modificar_peaje(nombre, ruta, km, telefono):
+def modificar_peaje(key, modifcar, opcion): #Preguntar si se modifica solo el nombre dos atributos todos como es
     with psql_db.atomic():
         try:
-            if peaje.get_or_none(peaje.nombre == nombre):
-                p_mod = peaje.get_by_id(nombre)
-                p_mod.nombre = nombre
-                p_mod.ruta = ruta
-                p_mod.km = km
-                p_mod.telefono_admin = telefono
+            if peaje.get_or_none(peaje.nombre == key):
+                p_mod = peaje.get(peaje.nombre == key)
+                if opcion == 1:
+                    p_mod.ruta = modifcar
+                if opcion == 2:
+                    p_mod.km = modifcar
+                if opcion == 3:
+                    p_mod.telefono_admin = modifcar
+                p_mod.save()
                 psql_db.commit()
             else:
                 print("El peaje ingresado no existe.")
