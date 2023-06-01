@@ -35,7 +35,7 @@ def modificar_vehiculo(key, modificar, opcion):
                     v_mod.modelo = modificar
                 elif opcion == 5:
                     v_mod.color = modificar
-                psql_db.save()
+                v_mod.save()
                 psql_db.commit()
             else:
                 print("El vehiculo ingresado no existe.")
