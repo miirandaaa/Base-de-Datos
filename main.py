@@ -34,7 +34,8 @@ if __name__ == '__main__':
             modelo = input("Ingrese el modelo del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
             tipo = input("Ingrese el tipo de vehiculo: ")
-            nuevo_prop = ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula, tag_rfid, marca, modelo, color, tipo)
+            ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula, tag_rfid, marca, modelo, color, tipo)
+            nuevo_prop = persona.get(persona.dni == dni)
             propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
             psql_db.commit()
          if ingresar == 2:
