@@ -71,7 +71,24 @@ if __name__ == '__main__':
          if modificar == 3:
             pass
          if modificar == 4:
-            pass
+            mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \nOpcion: "))
+            matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
+            if mod == 1:
+               nuevo_tag = int(input("Ingrese el nuevo tag rfid: "))
+               modificar_vehiculo(matricula, nuevo_tag, 1)
+            if mod == 2:
+               nueva_marca = input("Ingrese la nueva marca: ")
+               modificar_vehiculo(matricula, nueva_marca, 2)
+            if mod == 3:
+               nuevo_modelo = input("Ingrese el nuevo modelo: ")
+               modificar_vehiculo(matricula, nuevo_modelo, 3)
+            if mod == 4:
+               nuevo_color = input("Ingrese el nuevo color: ")
+               modificar_vehiculo(matricula, nuevo_color, 4)
+            if mod == 5:
+               nuevo_tipo = input("Ingrese el nuevo tipo: ")
+               modificar_vehiculo(matricula, nuevo_tipo, 5)
+            print("Vehiculo modificado correctamente.")
          if modificar == 5:
             mod = int(input("\n1 Modificar Ruta \n2 Modificar Km \n3 Modificar Telefono \nOpcion: "))
             nombre = input("Ingrese el nombre del peaje que desea modificar: ")
@@ -85,7 +102,6 @@ if __name__ == '__main__':
                nuevo_telefono = input("Ingrese el nuevo telefono: ")
                modificar_peaje(nombre, nuevo_telefono, 3)
             print("Peaje modificado correctamente.")
-            psql_db.commit()
          if modificar == 6:
             pass
       if opcion == 3:

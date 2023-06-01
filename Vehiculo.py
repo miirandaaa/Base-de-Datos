@@ -20,6 +20,28 @@ def ingresar_vehiculo(matricula, tag_rfid, marca, modelo, color, tipo):
             psql_db.rollback()
             print("Error: No se pudo crear el vehiculo debido a una violación de restricción única.")
 
+def modificar_vehiculo(key, modificar, opcion):
+    with psql_db.atomic():
+        try:
+            if vehiculo.get_or_none(vehiculo.matricula == key):
+                v_mod = vehiculo.get(vehiculo.matricula == key)
+                if opcion == 1:
+                    v_mod.matricula = modificar
+                elif opcion == 2:
+                    v_mod.tag_rfid = modificar
+                elif opcion == 3:
+                    v_mod.marca = modificar
+                elif opcion == 4:
+                    v_mod.modelo = modificar
+                elif opcion == 5:
+                    v_mod.color = modificar
+                psql_db.save()
+                psql_db.commit()
+            else:
+                print("El vehiculo ingresado no existe.")
+        except IntegrityError():
+            psql_db.rollback()
+            print("Error: No se pudo modificar el vehiculo debido a una violación de restricción única.")
 def consultar_vehiuclo(vehiculo_aconsultar):
     with psql_db.atomic():
         try:
