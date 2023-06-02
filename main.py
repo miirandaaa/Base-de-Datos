@@ -3,7 +3,6 @@ from Tablas import *
 from Peaje import *
 from Personas import *
 from Ventanilla import *
-from Peaje import ingresar_peaje, consultar_peaje, modificar_peaje
 from Cuenta import *
 from Personas import *
 from Vehiculo import *
