@@ -3,6 +3,7 @@ from Tablas import *
 from Peaje import *
 from Personas import *
 from Ventanilla import *
+from Peaje import ingresar_peaje, consultar_peaje, modificar_peaje
 from Cuenta import *
 from Personas import *
 from Vehiculo import *
@@ -64,13 +65,31 @@ if __name__ == '__main__':
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
-            pass
+            mod = int(input("\n1 Modificar nombres \n2 Modificar apellidos \n3 Modificar celular \n4 Modificar email \n5 Modificar direccion \n6 Volver al menu \nOpcion: "))
+            dni = int(input("Ingrese el dni de la persona que desea modificar: "))
+            if mod == 1:
+               nuevo_nombre = input("Ingrese el nuevo nombre: ")
+               modificar_persona(dni, nuevo_nombre, 1)
+            if mod == 2:
+               nuevo_apellido = input("Ingrese el nuevo apellido: ")
+               modificar_persona(dni, nuevo_apellido, 2)
+            if mod == 3:
+               nuevo_celular = int(input("Ingrese el nuevo celular: "))
+               modificar_persona(dni, nuevo_celular, 3)
+            if mod == 4:
+               nuevo_email = input("Ingrese el nuevo email: ")
+               modificar_persona(dni, nuevo_email, 4)
+            if mod == 5:
+               nueva_direccion = input("Ingrese la nueva direccion: ")
+               modificar_persona(dni, nueva_direccion, 5)
+            
+         
          if modificar == 2:
             pass
          if modificar == 3:
             pass
          if modificar == 4:
-            mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \nOpcion: "))
+            mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \n6 Volver al menu \nOpcion: "))
             matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
             if mod == 1:
                nuevo_tag = int(input("Ingrese el nuevo tag rfid: "))
@@ -87,7 +106,7 @@ if __name__ == '__main__':
             if mod == 5:
                nuevo_tipo = input("Ingrese el nuevo tipo: ")
                modificar_vehiculo(matricula, nuevo_tipo, 5)
-            print("Vehiculo modificado correctamente.")
+           
          if modificar == 5:
             mod = int(input("\n1 Modificar Ruta \n2 Modificar Km \n3 Modificar Telefono \nOpcion: "))
             nombre = input("Ingrese el nombre del peaje que desea modificar: ")
@@ -100,7 +119,7 @@ if __name__ == '__main__':
             if mod == 3:
                nuevo_telefono = input("Ingrese el nuevo telefono: ")
                modificar_peaje(nombre, nuevo_telefono, 3)
-            print("Peaje modificado correctamente.")
+            
          if modificar == 6:
             pass
       if opcion == 3:
@@ -129,7 +148,7 @@ if __name__ == '__main__':
       if opcion == 5:
          estado = False
 
-   # - Consultar Propietario
+  
 
    # - Modificar Persona
    # - Modificar Propietario
