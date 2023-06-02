@@ -3,7 +3,6 @@ from Tablas import *
 from Peaje import *
 from Personas import *
 from Ventanilla import *
-from datetime import date
 from Cuenta import *
 from Personas import *
 from Vehiculo import *
@@ -112,6 +111,7 @@ if __name__ == '__main__':
             persona_aconsultar = int(input("Ingrese el dni de la persona: "))
             consultar_persona(persona_aconsultar)
          if consultar == 2:
+            id_prop = int(input("Ingrese el id del propietario: "))
             consultar_propietario(id_prop)
          if consultar == 3:
             cuenta_aconsultar = int(input("Ingrese el numero de cuenta: "))
@@ -134,7 +134,6 @@ if __name__ == '__main__':
    # - Modificar Persona
    # - Modificar Propietario
    # - Modificar Cuenta
-   # - Modificar Vehículo
    # - Modificar Ventanilla
 
    # - Eliminar Persona
