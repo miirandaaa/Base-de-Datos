@@ -26,15 +26,15 @@ def modificar_vehiculo(key, modificar, opcion):
             if vehiculo.get_or_none(vehiculo.matricula == key):
                 v_mod = vehiculo.get(vehiculo.matricula == key)
                 if opcion == 1:
-                    v_mod.matricula = modificar
-                elif opcion == 2:
                     v_mod.tag_rfid = modificar
-                elif opcion == 3:
+                if opcion == 2:
                     v_mod.marca = modificar
-                elif opcion == 4:
+                if opcion == 3:
                     v_mod.modelo = modificar
-                elif opcion == 5:
+                if opcion == 4:
                     v_mod.color = modificar
+                if opcion == 5:
+                    v_mod.tipo_vehiculo = modificar
                 v_mod.save()
                 psql_db.commit()
             else:
