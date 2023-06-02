@@ -34,7 +34,8 @@ def modificar_vehiculo(key, modificar, opcion):
                 if opcion == 4:
                     v_mod.color = modificar
                 if opcion == 5:
-                    v_mod.tipo_vehiculo = modificar
+                    if tipo_vehiculo.get_or_none(tipo_vehiculo.tipo == modificar):
+                        v_mod.tipo_vehiculo = modificar
                 v_mod.save()
                 psql_db.commit()
             else:
