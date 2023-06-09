@@ -1,4 +1,3 @@
-from main import *
 from Tablas import *
 from Config import *
 from peewee import *
@@ -34,3 +33,14 @@ def modificar_persona(key, modificar, opcion):
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo modificar la persona debido a una violación de restricción única.")
+def eliminar_persona(persona_aeliminar):
+    with psql_db.atomic():
+        try:
+            if persona.get_or_none(persona.dni == persona_aeliminar):
+                persona_querida = persona.get_by_id(persona_aeliminar)
+                persona_querida.delete_instance()
+                print("Persona eliminada correctamente.")
+            else:
+                print("La persona no existe.")
+        except IntegrityError():
+            print("Error: No se pudo eliminar la persona debido a una violación de restricción única.")

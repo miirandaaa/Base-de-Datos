@@ -1,4 +1,3 @@
-from main import *
 from Tablas import *
 from Config import *
 from Peaje import *
