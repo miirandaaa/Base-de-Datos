@@ -58,9 +58,8 @@ if __name__ == '__main__':
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
          if ingresar == 5:
             nombre_p = input("Ingrese el nombre del peaje: ")
-            numero_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
-            ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid)
+            ingresar_ventanilla(nombre_p, tiene_rfid)
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
@@ -121,7 +120,8 @@ if __name__ == '__main__':
          eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Propietario \n3 Eliminar Cuenta \n4 Eliminar Vehiculo \n5 Eliminar Peaje \n6 Eliminar Ventanilla \nOpcion: "))
          pass
          if eliminar == 5: 
-
+            nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
+            eliminar_peaje(nombre)
          if eliminar == 6:
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
             eliminar_ventanilla(nro_ventanilla)
@@ -144,8 +144,7 @@ if __name__ == '__main__':
             consultar_peaje(peaje_aconsultar)
          if consultar == 6:
             peaje_aconsultar = input("Ingrese el nombre del peaje: ")
-            ventanilla_aconsultar = int(input("Ingrese el numero de la ventanilla: "))
-            consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar)
+            consultar_ventanilla(peaje_aconsultar)
       if opcion == 5:
          estado = False
 
@@ -160,5 +159,3 @@ if __name__ == '__main__':
    # - Eliminar Propietario
    # - Eliminar Cuenta
    # - Eliminar Vehículo
-   # - Eliminar Peaje
-   # - Eliminar Ventanilla

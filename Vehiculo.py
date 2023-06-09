@@ -1,4 +1,3 @@
-from main import *
 from Tablas import *
 from Config import *
 from Peaje import *
@@ -54,14 +53,14 @@ def consultar_vehiuclo(vehiculo_aconsultar):
 def eliminar_vehiculo(vehiculo_aeliminar):
     with psql_db.atomic():
         propietario_querido = propietario_tiene_vehiculo.get_by_id(vehiculo_aeliminar)
-        Query = propietario_tiene_vehiculo.select(fn.COUNT(propietario_tiene_vehiculo.vehiculo_aeliminiar.matricula)).where(propietario_tiene_vehiculo.id_propietario == propietario_querido.id_propietario)
-        count = Query.scalar()
-        print(count)
-        if 
-        sdsd
-        try:
-            vehiculo_querido = vehiculo.get_by_id(vehiculo_aeliminar)
-            vehiculo_querido.delete()
-            print("Vehiculo eliminado correctamente.")
-        except IntegrityError():
-            print("Error: No se pudo eliminar el vehiculo debido a una violación de restricción única.")
+        query = propietario_tiene_vehiculo.select(fn.COUNT(propietario_tiene_vehiculo.matricula)).where(propietario_tiene_vehiculo.id_propietario == propietario_querido.id_propietario)
+        count = query.scalar()
+        
+        if count == 1:
+            propietario_querido.delete_instance(recursive=True)
+            psql_db.commit()
+        else:
+            vehiculo_aeliminar.delete_instance(recursive=False)
+            psql_db.commit()
+        
+            
