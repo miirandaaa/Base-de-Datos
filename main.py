@@ -115,7 +115,9 @@ if __name__ == '__main__':
                nuevo_telefono = input("Ingrese el nuevo telefono: ")
                modificar_peaje(nombre, nuevo_telefono, 3)
          if modificar == 6:
-            pass
+            mod = int(input("Ingrese si la ventanilla tiene rfid o no: "))
+            peaje = input("Ingrese el nombre del peaje al que pertenece la ventanilla que desea modificar: ")
+            nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea modificar: "))
       if opcion == 3:
          eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Propietario \n3 Eliminar Cuenta \n4 Eliminar Vehiculo \n5 Eliminar Peaje \n6 Eliminar Ventanilla \nOpcion: "))
          pass
