@@ -120,7 +120,9 @@ if __name__ == '__main__':
                modificar_peaje(nombre, nuevo_telefono, 3)
             
          if modificar == 6:
-            pass
+            mod = int(input("Ingrese si la ventanilla tiene rfid o no: "))
+            peaje = input("Ingrese el nombre del peaje al que pertenece la ventanilla que desea modificar: ")
+            nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea modificar: "))
       if opcion == 3:
          pass
       if opcion == 4:
