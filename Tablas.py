@@ -44,11 +44,11 @@ class vehiculo(BaseModel):
    tipo_vehiculo = ForeignKeyField(tipo_vehiculo)
 
 class ventanilla(BaseModel):
-   nombre_peaje = ForeignKeyField(peaje)
-   nro = SmallIntegerField()
+   id_peaje = ForeignKeyField(peaje)
+   nro = AutoField()
    tiene_rfid = SmallIntegerField()
    class Meta:
-      primary_key = CompositeKey('nombre_peaje', 'nro')
+      primary_key = CompositeKey('id_peaje', 'nro')
 
 class empresa(BaseModel):
    id_propietario = ForeignKeyField(propietario)
