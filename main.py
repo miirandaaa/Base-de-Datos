@@ -80,9 +80,7 @@ if __name__ == '__main__':
                modificar_persona(dni, nuevo_email, 4)
             if mod == 5:
                nueva_direccion = input("Ingrese la nueva direccion: ")
-               modificar_persona(dni, nueva_direccion, 5)
-            
-         
+               modificar_persona(dni, nueva_direccion, 5)   
          if modificar == 2:
             pass
          if modificar == 3:
@@ -105,7 +103,6 @@ if __name__ == '__main__':
             if mod == 5:
                nuevo_tipo = input("Ingrese el nuevo tipo: ")
                modificar_vehiculo(matricula, nuevo_tipo, 5)
-           
          if modificar == 5:
             mod = int(input("\n1 Modificar Ruta \n2 Modificar Km \n3 Modificar Telefono \nOpcion: "))
             nombre = input("Ingrese el nombre del peaje que desea modificar: ")
@@ -118,11 +115,16 @@ if __name__ == '__main__':
             if mod == 3:
                nuevo_telefono = input("Ingrese el nuevo telefono: ")
                modificar_peaje(nombre, nuevo_telefono, 3)
-            
          if modificar == 6:
             pass
       if opcion == 3:
+         eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Propietario \n3 Eliminar Cuenta \n4 Eliminar Vehiculo \n5 Eliminar Peaje \n6 Eliminar Ventanilla \nOpcion: "))
          pass
+         if eliminar == 5: 
+
+         if eliminar == 6:
+            nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
+            eliminar_ventanilla(nro_ventanilla)
       if opcion == 4:
          consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
          if consultar == 1:

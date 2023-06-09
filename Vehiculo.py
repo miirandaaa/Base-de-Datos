@@ -50,3 +50,18 @@ def consultar_vehiuclo(vehiculo_aconsultar):
             print(f"Matricula: {vehiculo_querido.matricula} \nTag RFID: {vehiculo_querido.tag_rfid} \nMarca: {vehiculo_querido.marca} \nModelo: {vehiculo_querido.modelo} \nColor: {vehiculo_querido.color} \nTipo Vehiculo: {vehiculo_querido.tipo_vehiculo}")
         except IntegrityError():
             print("Error: No se pudo consultar el vehiculo debido a una violación de restricción única.")
+            
+def eliminar_vehiculo(vehiculo_aeliminar):
+    with psql_db.atomic():
+        propietario_querido = propietario_tiene_vehiculo.get_by_id(vehiculo_aeliminar)
+        Query = propietario_tiene_vehiculo.select(fn.COUNT(propietario_tiene_vehiculo.vehiculo_aeliminiar.matricula)).where(propietario_tiene_vehiculo.id_propietario == propietario_querido.id_propietario)
+        count = Query.scalar()
+        print(count)
+        if 
+        sdsd
+        try:
+            vehiculo_querido = vehiculo.get_by_id(vehiculo_aeliminar)
+            vehiculo_querido.delete()
+            print("Vehiculo eliminado correctamente.")
+        except IntegrityError():
+            print("Error: No se pudo eliminar el vehiculo debido a una violación de restricción única.")

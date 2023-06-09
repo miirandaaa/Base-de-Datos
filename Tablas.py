@@ -10,7 +10,8 @@ class tarifa (BaseModel):
    fecha_vigencia = DateField()
 
 class peaje(BaseModel):
-   nombre = CharField(max_length=30, primary_key=True)
+   id_peaje = AutoField(primary_key=True)
+   nombre = CharField(max_length=30, unique=True)
    ruta = SmallIntegerField()
    km = SmallIntegerField()
    telefono_admin = CharField(max_length=30)

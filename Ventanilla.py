@@ -17,6 +17,9 @@ def ingresar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
             psql_db.rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
+def modificar_ventanilla(nombre_p, numero_ventanilla, tiene_rfid):
+    pass
+
 def consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar):
     with psql_db.atomic():
         try:
@@ -28,4 +31,14 @@ def consultar_ventanilla(peaje_aconsultar, ventanilla_aconsultar):
             print(f"Nombre: {ventanilla_querida.nombre_peaje} \nNumero: {ventanilla_querida.nro} \nTiene RFID: {tiene}")
         except IntegrityError():
             print("Error: No se pudo consultar la ventanilla debido a una violación de restricción única.")
-        
+
+def eliminar_ventanilla(numero_eliminar):
+    with psql_db.atomic():
+        try:
+            ventanilla_eliminar = ventanilla.get_by_id(numero_eliminar)
+            ventanilla_eliminar.delete_instance(recursive = False)
+            psql_db.commit()
+            print("Ventanilla eliminada correctamente.")
+        except IntegrityError():
+            psql_db.rollback()
+            print("Error: No se pudo eliminar la ventanilla debido a una violación de restricción única.")
