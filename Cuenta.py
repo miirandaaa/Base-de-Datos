@@ -29,4 +29,20 @@ def consultar_cuenta(cuenta_aconsultar):
             print(f"Nro Cuenta: {cuenta_querida.nro_cuenta}, Fecha Creacion: {cuenta_querida.fecha_creacion_cuenta}, Saldo: {cuenta_querida.saldo}, Id Propietario: {cuenta_querida.id_propietario}")
         except IntegrityError():
             print("Error: No se pudo consultar la cuenta debido a una violación de restricción única.")
+
+def modificar_cuenta(num_cuenta, saldo):
+    with psql_db.atomic():
+        try:
+            if cuenta.get_or_none(cuenta.nro_cuenta == num_cuenta):
+                
+                cuenta_a_modificar = cuenta.get_by_id(num_cuenta)
+                cuenta_a_modificar.saldo = saldo
+                cuenta_a_modificar.save()
+                psql_db.commit()
+                print("Cuenta modificada correctamente.")
+            else:
+                print("La cuenta no existe.")
+        except IntegrityError():
+            psql_db.rollback()
+            print("Error: No se pudo modificar la cuenta debido a una violación de restricción única.")
     

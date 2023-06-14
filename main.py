@@ -58,9 +58,8 @@ if __name__ == '__main__':
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
          if ingresar == 5:
             nombre_p = input("Ingrese el nombre del peaje: ")
-            nro_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
-            ingresar_ventanilla(nombre_p, nro_ventanilla, tiene_rfid)
+            ingresar_ventanilla(nombre_p, tiene_rfid)
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
@@ -84,7 +83,11 @@ if __name__ == '__main__':
          if modificar == 2:
             pass
          if modificar == 3:
-            pass
+            nro_cuenta = int(input("Ingrese el numero de cuenta que desea modificar su saldo: "))
+            saldo = int(input("Ingrese el nuevo saldo: "))
+            modificar_cuenta(nro_cuenta, saldo)
+         
+            
          if modificar == 4:
             mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \n6 Volver al menu \nOpcion: "))
             matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
