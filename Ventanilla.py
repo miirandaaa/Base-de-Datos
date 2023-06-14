@@ -2,15 +2,19 @@ from Tablas import *
 from Config import *
 from Peaje import *
 
-def ingresar_ventanilla(nombre_p, tiene_rfid):
+def ingresar_ventanilla(nombre_p, nro, tiene_rfid):
     with psql_db.atomic():
         try:
             peaje_obj = peaje.get_or_none(peaje.nombre == nombre_p)
             if peaje_obj:
-                peaje_obj = peaje.get(peaje.nombre == nombre_p)
-                ventanilla.create(id_peaje=peaje_obj.id_peaje, tiene_rfid=tiene_rfid)
-                psql_db.commit()
-                print("Ventanilla creada correctamente.")
+                ventanilla_obj = ventanilla.get_or_none(ventanilla.nombre_peaje == peaje_obj, ventanilla.nro == nro)
+                if ventanilla_obj == None:
+                    peaje_obj = peaje.get(peaje.nombre == nombre_p)
+                    ventanilla.create(id_peaje=peaje_obj.id_peaje, tiene_rfid=tiene_rfid)
+                    psql_db.commit()
+                    print("Ventanilla creada correctamente.")
+                else: 
+                    print("La ventanilla ya existe.")
             else:
                 print("El peaje especificado no existe.")
         except IntegrityError():

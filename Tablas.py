@@ -45,11 +45,10 @@ class vehiculo(BaseModel):
 
 class ventanilla(BaseModel):
    id_peaje = ForeignKeyField(peaje)
-   nro_ventanilla = AutoField()
+   nro_ventanilla = IntegerField()
    tiene_rfid = SmallIntegerField()
    class Meta:
-      primary_key = False  # Set primary_key to False
-      constraints = [SQL('PRIMARY KEY (id_peaje, nro_ventanilla)')]
+      primary_key = CompositeKey('id_peaje', 'nro_ventanilla')
 
 class empresa(BaseModel):
    id_propietario = ForeignKeyField(propietario)
