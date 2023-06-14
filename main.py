@@ -84,7 +84,9 @@ if __name__ == '__main__':
          if modificar == 2:
             pass
          if modificar == 3:
-            pass
+            nro_cuenta = int(input("Ingrese el numero de cuenta que desea modificar su saldo: "))
+            saldo = int(input("Ingrese el nuevo saldo: "))
+            modificar_cuenta(nro_cuenta, saldo)
          if modificar == 4:
             mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \n6 Volver al menu \nOpcion: "))
             matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
