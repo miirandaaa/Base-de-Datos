@@ -90,7 +90,7 @@ if __name__ == '__main__':
          if modificar == 4:
             mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \n6 Volver al menu \nOpcion: "))
             matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
-            if mod == 1:
+            if mod == 1:2
                nuevo_tag = int(input("Ingrese el nuevo tag rfid: "))
                modificar_vehiculo(matricula, nuevo_tag, 1)
             if mod == 2:
