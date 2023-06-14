@@ -51,11 +51,15 @@ def consultar_ventanilla(peaje_aconsultar):
             print("Error: No se pudo consultar la ventanilla debido a una violación de restricción única.")
 
 
-def eliminar_ventanilla(numero_eliminar):
+def eliminar_ventanilla(nombre, numero_eliminar):
     with psql_db.atomic():
         try:
-            ventanilla_eliminar = ventanilla.get_by_id(numero_eliminar)
-            ventanilla_eliminar.delete_instance(recursive = False)
+            peaje_obj = peaje.get_or_none(peaje.nombre == nombre)
+            peaje_id = peaje_obj.id_peaje
+            if peaje_obj:
+                ventanilla_obj = ventanilla.get_or_none(ventanilla.id_peaje == peaje_id, ventanilla.nro_ventanilla == numero_eliminar)
+                if ventanilla_obj:
+                    ventanilla_obj.delete_instance(recursive = False)
             psql_db.commit()
             print("Ventanilla eliminada correctamente.")
         except IntegrityError():
