@@ -58,8 +58,9 @@ if __name__ == '__main__':
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
          if ingresar == 5:
             nombre_p = input("Ingrese el nombre del peaje: ")
+            nro_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
-            ingresar_ventanilla(nombre_p, tiene_rfid)
+            ingresar_ventanilla(nombre_p, nro_ventanilla, tiene_rfid)
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
