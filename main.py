@@ -58,8 +58,9 @@ if __name__ == '__main__':
             ingresar_peaje(nombre_peaje, ruta, km, telefono)
          if ingresar == 5:
             nombre_p = input("Ingrese el nombre del peaje: ")
+            nro_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
-            ingresar_ventanilla(nombre_p, tiene_rfid)
+            ingresar_ventanilla(nombre_p, nro_ventanilla, tiene_rfid)
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Propietario \n3 Modificar Cuenta \n4 Modificar Vehiculo \n5 Modificar Peaje \n6 Modificar Ventanilla \nOpcion: "))
          if modificar == 1:
@@ -83,11 +84,7 @@ if __name__ == '__main__':
          if modificar == 2:
             pass
          if modificar == 3:
-            nro_cuenta = int(input("Ingrese el numero de cuenta que desea modificar su saldo: "))
-            saldo = int(input("Ingrese el nuevo saldo: "))
-            modificar_cuenta(nro_cuenta, saldo)
-         
-            
+            pass
          if modificar == 4:
             mod = int(input("\n1 Modificar Tag RFID \n2 Modificar Marca \n3 Modificar Modelo \n4 Modificar Color \n5 Modificar Tipo \n6 Volver al menu \nOpcion: "))
             matricula = int(input("Ingrese la matricula del vehiculo que desea modificar: "))
@@ -133,8 +130,9 @@ if __name__ == '__main__':
             nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
             eliminar_peaje(nombre)
          if eliminar == 6:
+            peaje_querido = input("Ingrese el nombre del peaje al que pertenece la ventanilla que desea eliminar: ")
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
-            eliminar_ventanilla(nro_ventanilla)
+            eliminar_ventanilla(peaje_querido, nro_ventanilla)
       if opcion == 4:
          consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
          if consultar == 1:
