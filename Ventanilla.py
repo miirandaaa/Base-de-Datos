@@ -10,7 +10,7 @@ def ingresar_ventanilla(nombre_p, nro, tiene_rfid):
             if peaje_obj:
                 ventanilla_obj = ventanilla.get_or_none(ventanilla.id_peaje == peaje_id, ventanilla.nro_ventanilla == nro)
                 if ventanilla_obj == None:
-                    ventanilla.create(id_peaje=peaje_obj.id_peaje, tiene_rfid=tiene_rfid)
+                    ventanilla.create(id_peaje=peaje_id, nro_ventanilla = nro, tiene_rfid=tiene_rfid)
                     psql_db.commit()
                     print("Ventanilla creada correctamente.")
                 else: 
