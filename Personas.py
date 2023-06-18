@@ -36,11 +36,22 @@ def modificar_persona(key, modificar, opcion):
 def eliminar_persona(persona_aeliminar):
     with psql_db.atomic():
         try:
-            if persona.get_or_none(persona.dni == persona_aeliminar):
-                persona_querida = persona.get_by_id(persona_aeliminar)
-                persona_querida.delete_instance()
+            p_eliminar = persona.get_or_none(persona.dni == persona_aeliminar)
+            id_prop = p_eliminar.id_propietario
+            if p_eliminar:
+                cuenta_eliminar = cuenta.get_or_none(cuenta.id_propietario == id_prop)
+                if cuenta_eliminar:
+                    if persona_pariente.get_or_none(persona_pariente.dni == p_eliminar.dni):
+                        p_pariente = persona.get_by_id(persona_pariente.dni_pariente)
+                        cuenta_eliminar.id_propietario = p_pariente.id_propietario
+                        cuenta_eliminar.save()
+                    else:
+                        cuenta_eliminar.delete_instance()
+                id_prop.delete_instance(recursive = True)
+                psql_db.commit()
                 print("Persona eliminada correctamente.")
             else:
                 print("La persona no existe.")
         except IntegrityError():
+            psql_db.rollback()
             print("Error: No se pudo eliminar la persona debido a una violación de restricción única.")
