@@ -43,13 +43,14 @@ if __name__ == '__main__':
             id_prop = int(input("Ingrese el id del propietario: "))
             ingresar_cuenta(nro_cuenta, fecha_cuenta, id_prop)
          if ingresar == 3:
+            dni_prop = int(input("Ingrese el dni del propietario: "))
             matricula = int(input("Ingrese la matricula del vehiculo: "))
             tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
             marca = input("Ingrese la marca del vehiculo: ")
             modelo = input("Ingrese el modelo del vehiculo: ")
             color = input("Ingrese el color del vehiculo: ")
             tipo = input("Ingrese el tipo de vehiculo: ")
-            ingresar_vehiculo(matricula, tag_rfid, marca, modelo, color, tipo)
+            ingresar_vehiculo(dni_prop,matricula, tag_rfid, marca, modelo, color, tipo)
          if ingresar == 4:
             nombre_peaje= input("Ingrese el nombre del peaje: ")
             ruta = int(input("Ingrese la ruta en la que se encuentra el peaje: "))
