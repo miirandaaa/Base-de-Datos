@@ -3,13 +3,13 @@ from Config import *
 from Peaje import *
 import datetime
 
-def ingresar_cuenta (nro_cuenta, fecha_cuenta, id):
+def ingresar_cuenta (nro_cuenta, fecha_cuenta, dni):
     with psql_db.atomic():
         try:
             if cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta):
                 print("La cuenta ingresada ya existe.")
             else:
-                titular = propietario.get_or_none(propietario.id_propietario == id)
+                titular =persona.get_or_none(persona.dni == dni)
                 if titular:
                     data = fecha_cuenta.split("-")
                     if int(data[1])<=12 and int(data[1])>0 and int(data[2])<=31 and int(data[2])>0:
