@@ -8,6 +8,7 @@ from Personas import *
 from Vehiculo import *
 from Propietario import *
 from Reportes import *
+from Credito import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
@@ -20,7 +21,7 @@ if __name__ == '__main__':
    #tipo_vehiculo.create(tipo ='auto') and tipo_vehiculo.create(tipo ='camioneta') and tipo_vehiculo.create(tipo ='camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
    estado = True
    while estado:
-      opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Salir \nOpcion: "))
+      opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Registar credito o debito \n7 Salir \nOpcion: "))
       if opcion == 1:
          ingresar = int(input("\n1 Ingersar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
@@ -158,4 +159,10 @@ if __name__ == '__main__':
          if reporte == 2:
             listado_cuenta_con_titular_y_vehiculos()
       if opcion == 6:
+         registro = int(input("\n1 Acreditar saldo \n2 Registrar pasada (debito) \nOpcion:"))
+         if registro == 1:
+            acreditacion()   
+         if registro == 2:
+            pass
+      if opcion == 7:
          estado = False
