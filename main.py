@@ -37,8 +37,8 @@ if __name__ == '__main__':
          if ingresar == 2:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
             fecha_cuenta = input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): ")
-            dni = int(input("Ingrese el id del propietario: "))
-            ingresar_cuenta(nro_cuenta, fecha_cuenta, dni)
+            id = int(input("Ingrese el id del propietario: "))
+            ingresar_cuenta(nro_cuenta, fecha_cuenta, id)
          if ingresar == 3:
             dni_prop = int(input("Ingrese el dni del propietario: "))
             matricula = int(input("Ingrese la matricula del vehiculo: "))

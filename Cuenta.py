@@ -3,13 +3,13 @@ from Config import *
 from Peaje import *
 import datetime
 
-def ingresar_cuenta (nro_cuenta, fecha_cuenta, dni):
+def ingresar_cuenta (nro_cuenta, fecha_cuenta, id):
     with psql_db.atomic():
         try:
             if cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta):
                 print("La cuenta ingresada ya existe.")
             else:
-                titular = persona.get_or_none(persona.dni == dni)
+                titular = propietario.get_or_none(propietario.id_propietario == id)
                 if titular:
                     data = fecha_cuenta.split("-")
                     if int(data[1])<=12 and int(data[1])>0 and int(data[2])<=31 and int(data[2])>0:
@@ -17,8 +17,10 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta, dni):
                         cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=date, saldo = 0, id_propietario = titular.id_propietario)
                         psql_db.commit()
                         print("Cuenta creada correctamente.")
+                    else:
+                        print("La fecha ingresada no es valida.")
                 else:
-                    print("El propietario ingresado no existe.")
+                    print("El propietario no existe.")
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
