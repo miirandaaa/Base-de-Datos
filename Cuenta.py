@@ -46,4 +46,16 @@ def modificar_cuenta(num_cuenta, saldo):
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo modificar la cuenta debido a una violación de restricción única.")
+
+def eliminar_cuenta(num_cuenta):
+    with psql_db.atomic():
+        try:
+            if cuenta.get_or_none(cuenta.nro_cuenta == num_cuenta):
+                cuenta_eliminar = cuenta.get_by_id(num_cuenta)
+                cuenta_eliminar.delete_instance(recursive = True)
+                psql_db.commit()
+                print("Cuenta eliminada correctamente.")
+        except IntegrityError():
+            psql_db.rollback()
+            print("Error: No se pudo eliminar la cuenta debido a una violación de restricción única.")
     
