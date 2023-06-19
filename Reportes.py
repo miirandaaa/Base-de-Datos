@@ -17,3 +17,6 @@ def reporte_titular_y_vehiculos():
                 fila_pasada = fila
             else:
                 print(f"Vehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')} {fila.get('color')}")
+
+def listado_cuenta_con_titular_y_vehiculos():
+    
