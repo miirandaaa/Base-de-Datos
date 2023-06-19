@@ -8,9 +8,10 @@ from Personas import *
 from Vehiculo import *
 from Propietario import *
 from Reportes import *
+db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
-   psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
+   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
 
 
 if __name__ == '__main__':
@@ -21,7 +22,7 @@ if __name__ == '__main__':
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Salir \nOpcion: "))
       if opcion == 1:
-         ingresar = int(input("\n1 Ingrsar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \nOpcion: "))
+         ingresar = int(input("\n1 Ingersar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
             dni = int(input("Ingrese el dni del propietario: "))
             nombres = input("Ingrese los nombres del propietario: ")
@@ -33,7 +34,7 @@ if __name__ == '__main__':
             ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula)
             nuevo_prop = persona.get(persona.dni == dni)
             propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
-            psql_db.commit()
+            db_conn['rdbms'].commit()
          if ingresar == 2:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
             fecha_cuenta = input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): ")

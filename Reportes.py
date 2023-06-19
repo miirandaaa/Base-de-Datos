@@ -1,8 +1,8 @@
 from Config import *
 from Tablas import *
-
+db_conn['rdbms'] = db_conn['rdbms']
 def reporte_titular_y_vehiculos():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         reportes = (vehiculo
             .select(vehiculo, propietario_tiene_vehiculo, persona)
             .join(propietario_tiene_vehiculo)
@@ -19,7 +19,7 @@ def reporte_titular_y_vehiculos():
                 print(f"Vehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')} {fila.get('color')}")
 
 def listado_cuenta_con_titular_y_vehiculos():
-   with psql_db.atomic():
+   with db_conn['rdbms'].atomic():
     reportes = (cuenta
                 .select(cuenta, propietario, vehiculo)
                 .join(propietario, on=(propietario.id_propietario == cuenta.id_propietario))

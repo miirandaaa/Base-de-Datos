@@ -1,9 +1,10 @@
 from Tablas import *
 from Config import *
 from peewee import *
+db_conn['rdbms'] = db_conn['rdbms']
 
 def consultar_persona():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             persona_aconsultar = int(input("Ingrese el dni de la persona: "))
             persona_querida = persona.get_by_id(persona_aconsultar)
@@ -12,7 +13,7 @@ def consultar_persona():
             print("Error: No se pudo consultar la persona debido a una violación de restricción única.")
 
 def modificar_persona(key, modificar, opcion):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             if persona.get_or_none(persona.dni == key):
                 p_mod = persona.get(persona.dni == key)
@@ -28,14 +29,14 @@ def modificar_persona(key, modificar, opcion):
                     p_mod.direccion = modificar    
                 p_mod.save()
                 print("Persona modificada correctamente.")
-                psql_db.commit()
+                db_conn['rdbms'].commit()
             else:
                 print("La persona no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo modificar la persona debido a una violación de restricción única.")
 def eliminar_persona():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             persona_aeliminar = int(input("Ingrese el dni de la persona que desea eliminar: "))
             p_eliminar = persona.get_or_none(persona.dni == persona_aeliminar)
@@ -53,10 +54,10 @@ def eliminar_persona():
                 for vehiculo_instance in vehiculos:
                     vehiculo_instance.delete_instance(recursive=True)
                 id_prop.delete_instance(recursive = True)
-                psql_db.commit()
+                db_conn['rdbms'].commit()
                 print("Persona eliminada correctamente.")
             else:
                 print("La persona no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo eliminar la persona debido a una violación de restricción única.")

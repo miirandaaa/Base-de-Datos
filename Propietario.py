@@ -1,9 +1,10 @@
 from Tablas import *
 from Config import *
 from peewee import *
+db_conn['rdbms'] = db_conn['rdbms']
 
 def ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             v_ingresar = vehiculo.get_or_none(vehiculo.matricula == matricula)
             if persona.get_or_none(persona.dni == dni):
@@ -23,11 +24,11 @@ def ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, mat
                     propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
                 print("Propietario y Vehiculo agregado correctamente.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo crear el propietario debido a una violación de restricción única.")
 
 def consultar_propietario():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             id_prop = int(input("Ingrese el id del propietario: "))
             prop_querido = propietario.get_by_id(id_prop)

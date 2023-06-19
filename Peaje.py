@@ -1,22 +1,22 @@
 from Tablas import *
 from Config import *
 from peewee import *
-
+db_conn['rdbms'] = db_conn['rdbms']
 def ingresar_peaje(nombre_peaje, ruta, km, telefono): #Preguntar si se tiene que crear con ventanillas o no
-     with psql_db.atomic():
+     with db_conn['rdbms'].atomic():
         try:
             if peaje.get_or_none(peaje.nombre == nombre_peaje):
                 print("El peaje ingresado ya existe.")
             else:
                 peaje.create(nombre=nombre_peaje, ruta=ruta, km=km, telefono_admin=telefono)
-                psql_db.commit()
+                db_conn['rdbms'].commit()
                 print("Peaje creado correctamente.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
 def consultar_peaje():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             peaje_aconsultar = input("Ingrese el nombre del peaje: ")
             peaje_querido = peaje.get(peaje.nombre == peaje_aconsultar)
@@ -25,7 +25,7 @@ def consultar_peaje():
             print("Error: No se pudo consultar el peaje debido a una violación de restricción única.")
 
 def modificar_peaje(key, modifcar, opcion): 
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             if peaje.get_or_none(peaje.nombre == key):
                 p_mod = peaje.get(peaje.nombre == key)
@@ -38,21 +38,21 @@ def modificar_peaje(key, modifcar, opcion):
                 if opcion == 4:
                     p_mod.nombre = modifcar
                 p_mod.save()
-                psql_db.commit()
+                db_conn['rdbms'].commit()
             else:
                 print("El peaje ingresado no existe.")
         except:
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo modificar el peaje debido a una violación de restricción única.")
 
 def eliminar_peaje():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
             peaje_eliminar = peaje.get(peaje.nombre == nombre)
             peaje_eliminar.delete_instance(recursive = True)
-            psql_db.commit()
+            db_conn['rdbms'].commit()
             print("Peaje eliminado correctamente.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo eliminar el peaje debido a una violación de restricción única.")

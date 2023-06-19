@@ -1,9 +1,9 @@
 from Tablas import *
 from Config import *
 from Peaje import *
-
+db_conn['rdbms'] = db_conn['rdbms']
 def ingresar_ventanilla(nombre_p, nro, tiene_rfid):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             peaje_obj = peaje.get_or_none(peaje.nombre == nombre_p)
             peaje_id = peaje_obj.id_peaje
@@ -11,18 +11,18 @@ def ingresar_ventanilla(nombre_p, nro, tiene_rfid):
                 ventanilla_obj = ventanilla.get_or_none(ventanilla.id_peaje == peaje_id, ventanilla.nro_ventanilla == nro)
                 if ventanilla_obj == None:
                     ventanilla.create(id_peaje=peaje_id, nro_ventanilla = nro, tiene_rfid=tiene_rfid)
-                    psql_db.commit()
+                    db_conn['rdbms'].commit()
                     print("Ventanilla creada correctamente.")
                 else: 
                     print("La ventanilla ya existe.")
             else:
                 print("El peaje especificado no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
 def modificar_ventanilla(nombre,numero,RFID):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             peaje_obj = peaje.get_or_none(peaje.nombre == nombre)
             peaje_id = peaje_obj.id_peaje
@@ -31,19 +31,19 @@ def modificar_ventanilla(nombre,numero,RFID):
                 if ventanilla_obj:
                     ventanilla_obj.tiene_rfid=RFID
                     ventanilla_obj.save()
-                    psql_db.commit()
+                    db_conn['rdbms'].commit()
                     print("Ventanilla modificada correctamente.")
                 else:
                     print("La ventanilla no existe.")
             else:
                 print("El peaje no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
 #falta hacer esto
 def consultar_ventanilla():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             peaje_aconsultar = input("Ingrese el nombre del peaje: ")
             id_peaje = peaje.get(peaje.nombre == peaje_aconsultar).id_peaje
@@ -55,7 +55,7 @@ def consultar_ventanilla():
 
 
 def eliminar_ventanilla(nombre, numero_eliminar):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             peaje_obj = peaje.get_or_none(peaje.nombre == nombre)
             peaje_id = peaje_obj.id_peaje
@@ -63,8 +63,8 @@ def eliminar_ventanilla(nombre, numero_eliminar):
                 ventanilla_obj = ventanilla.get_or_none(ventanilla.id_peaje == peaje_id, ventanilla.nro_ventanilla == numero_eliminar)
                 if ventanilla_obj:
                     ventanilla_obj.delete_instance(recursive = False)
-            psql_db.commit()
+            db_conn['rdbms'].commit()
             print("Ventanilla eliminada correctamente.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo eliminar la ventanilla debido a una violación de restricción única.")

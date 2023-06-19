@@ -1,9 +1,9 @@
 from Tablas import *
 from Config import *
 from Peaje import *
-
+db_conn['rdbms'] = db_conn['rdbms']
 def ingresar_vehiculo(dni, matricula, tag_rfid, marca, modelo, color, tipo):
-     with psql_db.atomic():
+     with db_conn['rdbms'].atomic():
         try:
             if vehiculo.get_or_none(vehiculo.matricula == matricula):
                 print("El vehiculo ingresado ya existe.")
@@ -15,16 +15,16 @@ def ingresar_vehiculo(dni, matricula, tag_rfid, marca, modelo, color, tipo):
                         dueño_id = dueño.id_propietario
                         vehiculo.create(matricula=matricula, tag_rfid=tag_rfid, marca=marca, modelo=modelo, color=color, tipo_vehiculo=tipo)
                         propietario_tiene_vehiculo.create(id_propietario=dueño_id, matricula=matricula)
-                        psql_db.commit()
+                        db_conn['rdbms'].commit()
                         print("Vehiculo creado correctamente.")
                     else:
                         print("El tipo de vehiculo ingresado no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo crear el vehiculo debido a una violación de restricción única.")
 
 def modificar_vehiculo(key, modificar, opcion):
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             if vehiculo.get_or_none(vehiculo.matricula == key):
                 v_mod = vehiculo.get(vehiculo.matricula == key)
@@ -40,15 +40,15 @@ def modificar_vehiculo(key, modificar, opcion):
                     if tipo_vehiculo.get_or_none(tipo_vehiculo.tipo == modificar):
                         v_mod.tipo_vehiculo = modificar
                 v_mod.save()
-                psql_db.commit()
+                db_conn['rdbms'].commit()
             else:
                 print("El vehiculo ingresado no existe.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
             print("Error: No se pudo modificar el vehiculo debido a una violación de restricción única.")
 
 def consultar_vehiuclo():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         try:
             vehiculo_aconsultar = int(input("Ingrese la matricula del vehiculo: "))
             vehiculo_querido = vehiculo.get_by_id(vehiculo_aconsultar)
@@ -57,7 +57,7 @@ def consultar_vehiuclo():
             print("Error: No se pudo consultar el vehiculo debido a una violación de restricción única.")
 
 def eliminar_vehiculo():
-    with psql_db.atomic():
+    with db_conn['rdbms'].atomic():
         matricula = int(input("Ingrese la matricula del vehiculo que desea eliminar: "))
         try:
             v_eliminar = vehiculo.get_or_none(vehiculo.matricula == matricula)
@@ -70,9 +70,9 @@ def eliminar_vehiculo():
                     else:
                         propietario_tiene_vehiculo.get(propietario_tiene_vehiculo.id_propietario == propietario_instance.id_propietario, propietario_tiene_vehiculo.matricula == matricula).delete_instance()
                 v_eliminar.delete_instance(recursive=True)
-                psql_db.commit()
+                db_conn['rdbms'].commit()
                 print("Vehiculo eliminado correctamente.")
         except IntegrityError():
-            psql_db.rollback()
+            db_conn['rdbms'].rollback()
         
         
