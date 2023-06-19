@@ -46,16 +46,19 @@ def modificar_vehiculo(key, modificar, opcion):
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo modificar el vehiculo debido a una violación de restricción única.")
-def consultar_vehiuclo(vehiculo_aconsultar):
+
+def consultar_vehiuclo():
     with psql_db.atomic():
         try:
+            vehiculo_aconsultar = int(input("Ingrese la matricula del vehiculo: "))
             vehiculo_querido = vehiculo.get_by_id(vehiculo_aconsultar)
             print(f"Matricula: {vehiculo_querido.matricula} \nTag RFID: {vehiculo_querido.tag_rfid} \nMarca: {vehiculo_querido.marca} \nModelo: {vehiculo_querido.modelo} \nColor: {vehiculo_querido.color} \nTipo Vehiculo: {vehiculo_querido.tipo_vehiculo}")
         except IntegrityError():
             print("Error: No se pudo consultar el vehiculo debido a una violación de restricción única.")
 
-def eliminar_vehiculo(matricula):
+def eliminar_vehiculo():
     with psql_db.atomic():
+        matricula = int(input("Ingrese la matricula del vehiculo que desea eliminar: "))
         try:
             v_eliminar = vehiculo.get_or_none(vehiculo.matricula == matricula)
             if v_eliminar:

@@ -23,10 +23,10 @@ def ingresar_cuenta (nro_cuenta, fecha_cuenta, dni):
             psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
-#CORROBORAR QUE FUNCIONE
-def consultar_cuenta(cuenta_aconsultar):
+def consultar_cuenta():
     with psql_db.atomic():
         try:
+            cuenta_aconsultar = int(input("Ingrese el numero de cuenta: "))
             cuenta_querida = cuenta.get_by_id(cuenta_aconsultar)
             print(f"Nro Cuenta: {cuenta_querida.nro_cuenta}, Fecha Creacion: {cuenta_querida.fecha_creacion_cuenta}, Saldo: {cuenta_querida.saldo}, Id Propietario: {cuenta_querida.id_propietario}")
         except IntegrityError():
@@ -47,14 +47,17 @@ def modificar_cuenta(num_cuenta, saldo):
             psql_db.rollback()
             print("Error: No se pudo modificar la cuenta debido a una violación de restricción única.")
 
-def eliminar_cuenta(num_cuenta):
+def eliminar_cuenta():
     with psql_db.atomic():
         try:
+            num_cuenta = int(input("Ingrese el numero de cuenta que desea eliminar: "))
             if cuenta.get_or_none(cuenta.nro_cuenta == num_cuenta):
                 cuenta_eliminar = cuenta.get_by_id(num_cuenta)
                 cuenta_eliminar.delete_instance(recursive = True)
                 psql_db.commit()
                 print("Cuenta eliminada correctamente.")
+            else:
+                print("La cuenta no existe.")
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo eliminar la cuenta debido a una violación de restricción única.")

@@ -15,15 +15,16 @@ def ingresar_peaje(nombre_peaje, ruta, km, telefono): #Preguntar si se tiene que
             psql_db.rollback()
             print("Error: No se pudo crear el peaje debido a una violación de restricción única.")
 
-def consultar_peaje(peaje_aconsultar):
+def consultar_peaje():
     with psql_db.atomic():
         try:
+            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
             peaje_querido = peaje.get(peaje.nombre == peaje_aconsultar)
             print(f"ID Peaje: {peaje_querido.id_peaje} \nNombre: {peaje_querido.nombre} \nRuta: {peaje_querido.ruta} \nKm: {peaje_querido.km} \nTelefono: {peaje_querido.telefono_admin}")
         except IntegrityError():
             print("Error: No se pudo consultar el peaje debido a una violación de restricción única.")
 
-def modificar_peaje(key, modifcar, opcion): #Preguntar si se modifica solo el nombre dos atributos todos como es
+def modificar_peaje(key, modifcar, opcion): 
     with psql_db.atomic():
         try:
             if peaje.get_or_none(peaje.nombre == key):
@@ -34,6 +35,8 @@ def modificar_peaje(key, modifcar, opcion): #Preguntar si se modifica solo el no
                     p_mod.km = modifcar
                 if opcion == 3:
                     p_mod.telefono_admin = modifcar
+                if opcion == 4:
+                    p_mod.nombre = modifcar
                 p_mod.save()
                 psql_db.commit()
             else:
@@ -42,9 +45,10 @@ def modificar_peaje(key, modifcar, opcion): #Preguntar si se modifica solo el no
             psql_db.rollback()
             print("Error: No se pudo modificar el peaje debido a una violación de restricción única.")
 
-def eliminar_peaje(nombre):
+def eliminar_peaje():
     with psql_db.atomic():
         try:
+            nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
             peaje_eliminar = peaje.get(peaje.nombre == nombre)
             peaje_eliminar.delete_instance(recursive = True)
             psql_db.commit()

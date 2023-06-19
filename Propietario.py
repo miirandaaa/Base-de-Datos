@@ -26,9 +26,10 @@ def ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, mat
             psql_db.rollback()
             print("Error: No se pudo crear el propietario debido a una violación de restricción única.")
 
-def consultar_propietario(id_prop):
+def consultar_propietario():
     with psql_db.atomic():
         try:
+            id_prop = int(input("Ingrese el id del propietario: "))
             prop_querido = propietario.get_by_id(id_prop)
             print(f"ID Propietario: {prop_querido.id_propietario} \nTipo Propietario: {prop_querido.tipo_propietario}")
         except IntegrityError():

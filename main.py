@@ -7,6 +7,7 @@ from Cuenta import *
 from Personas import *
 from Vehiculo import *
 from Propietario import *
+from Reportes import *
         
 def create_tables():
    psql_db.create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
@@ -18,7 +19,7 @@ if __name__ == '__main__':
    #tipo_vehiculo.create(tipo ='Auto') and tipo_vehiculo.create(tipo ='Camioneta') and tipo_vehiculo.create(tipo ='Camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
    estado = True
    while estado:
-      opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Salir \nOpcion: "))
+      opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Salir \nOpcion: "))
       if opcion == 1:
          ingresar = int(input("\n1 Ingrsar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \nOpcion: "))
          if ingresar == 1:
@@ -124,16 +125,13 @@ if __name__ == '__main__':
          eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Cuenta \n3 Eliminar Vehiculo \n4 Eliminar Peaje \n5 Eliminar Ventanilla \nOpcion: "))
          pass
          if eliminar == 1:
-            dni = int(input("Ingrese el dni de la persona que desea eliminar: "))
-            eliminar_persona(dni)
+            eliminar_persona()
          if eliminar == 2:
-            pass
+            eliminar_cuenta()
          if eliminar == 3:
-            matricula = int(input("Ingrese la matricula del vehiculo que desea eliminar: "))
-            eliminar_vehiculo(matricula)
+            eliminar_vehiculo()
          if eliminar == 4: 
-            nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
-            eliminar_peaje(nombre)
+            eliminar_peaje()
          if eliminar == 5:
             peaje_querido = input("Ingrese el nombre del peaje al que pertenece la ventanilla que desea eliminar: ")
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
@@ -141,28 +139,22 @@ if __name__ == '__main__':
       if opcion == 4:
          consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
          if consultar == 1:
-            persona_aconsultar = int(input("Ingrese el dni de la persona: "))
-            consultar_persona(persona_aconsultar)
+            consultar_persona()
          if consultar == 2:
-            id_prop = int(input("Ingrese el id del propietario: "))
-            consultar_propietario(id_prop)
+            consultar_propietario()
          if consultar == 3:
-            cuenta_aconsultar = int(input("Ingrese el numero de cuenta: "))
-            consultar_cuenta(cuenta_aconsultar)
+            consultar_cuenta()
          if consultar == 4:
-            vehiculo_aconsultar = int(input("Ingrese la matricula del vehiculo: "))
-            consultar_vehiuclo(vehiculo_aconsultar)
+            consultar_vehiuclo()
          if consultar == 5:
-            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
-            consultar_peaje(peaje_aconsultar)
+            consultar_peaje()
          if consultar == 6:
-            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
-            consultar_ventanilla(peaje_aconsultar)
+            consultar_ventanilla()
       if opcion == 5:
+         reporte = int(input("\n1 Listado de Propietario y sus Vehiculos \n2 Listado de Cuentas con su Titular y sus Vehiculos asociados"))
+         if reporte == 1:
+            reporte_titular_y_vehiculos()
+         if reporte == 2:
+            pass
+      if opcion == 6:
          estado = False
-
-  
-   # - Eliminar Persona
-   # - Eliminar Propietario
-   # - Eliminar Cuenta
-   # - Eliminar Vehículo

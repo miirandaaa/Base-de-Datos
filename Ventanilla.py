@@ -41,11 +41,15 @@ def modificar_ventanilla(nombre,numero,RFID):
             psql_db.rollback()
             print("Error: No se pudo crear la ventanilla debido a una violación de restricción única.")
 
-def consultar_ventanilla(peaje_aconsultar):
+#falta hacer esto
+def consultar_ventanilla():
     with psql_db.atomic():
         try:
-            ventanilla_querida = ventanilla.get(nombre_peaje=peaje_aconsultar)
-            ventanilla_querida.select()
+            peaje_aconsultar = input("Ingrese el nombre del peaje: ")
+            id_peaje = peaje.get(peaje.nombre == peaje_aconsultar).id_peaje
+            ventanillas = ventanilla.select().where(ventanilla.id_peaje == id_peaje)
+            for ventanilla_intance in ventanillas:
+                print("Nro de ventanilla: ", ventanilla_intance.nro_ventanilla, " RFID: ", ventanilla_intance.tiene_rfid)
         except IntegrityError():
             print("Error: No se pudo consultar la ventanilla debido a una violación de restricción única.")
 

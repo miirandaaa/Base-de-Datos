@@ -2,11 +2,12 @@ from Tablas import *
 from Config import *
 from peewee import *
 
-def consultar_persona(persona_aconsultar):
+def consultar_persona():
     with psql_db.atomic():
         try:
+            persona_aconsultar = int(input("Ingrese el dni de la persona: "))
             persona_querida = persona.get_by_id(persona_aconsultar)
-            print(f"DNI: {persona_querida.dni} \nNombres: {persona_querida.nombres} \nApellidos: {persona_querida.apellidos} \nCelular: {persona_querida.celular} \nEmail: {persona_querida.email} \nDireccion: {persona_querida.direccion}")
+            print(f"DNI: {persona_querida.dni} \nID: {persona_querida.id_propietario} \nNombres: {persona_querida.nombres} \nApellidos: {persona_querida.apellidos} \nCelular: {persona_querida.celular} \nEmail: {persona_querida.email} \nDireccion: {persona_querida.direccion}")
         except IntegrityError():
             print("Error: No se pudo consultar la persona debido a una violación de restricción única.")
 
@@ -33,9 +34,10 @@ def modificar_persona(key, modificar, opcion):
         except IntegrityError():
             psql_db.rollback()
             print("Error: No se pudo modificar la persona debido a una violación de restricción única.")
-def eliminar_persona(persona_aeliminar):
+def eliminar_persona():
     with psql_db.atomic():
         try:
+            persona_aeliminar = int(input("Ingrese el dni de la persona que desea eliminar: "))
             p_eliminar = persona.get_or_none(persona.dni == persona_aeliminar)
             id_prop = p_eliminar.id_propietario
             if p_eliminar:
