@@ -48,7 +48,8 @@ def eliminar_persona(persona_aeliminar):
                     else:
                         cuenta_eliminar.delete_instance()
                 vehiculos = vehiculo.select().join(propietario_tiene_vehiculo).where(propietario_tiene_vehiculo.id_propietario == id_prop)
-                vehiculos.delete_instance(recursive = True)
+                for vehiculo_instance in vehiculos:
+                    vehiculo_instance.delete_instance(recursive=True)
                 id_prop.delete_instance(recursive = True)
                 psql_db.commit()
                 print("Persona eliminada correctamente.")

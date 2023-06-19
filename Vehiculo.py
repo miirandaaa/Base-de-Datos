@@ -8,13 +8,13 @@ def ingresar_vehiculo(dni, matricula, tag_rfid, marca, modelo, color, tipo):
             if vehiculo.get_or_none(vehiculo.matricula == matricula):
                 print("El vehiculo ingresado ya existe.")
             else:
-                dueño = propietario.get_or_none(propietario.dni == dni)
+                dueño = persona.get_or_none(persona.dni == dni)
                 if dueño:
                     tipo_existe = tipo_vehiculo.get_or_none(tipo_vehiculo.tipo == tipo)
                     if tipo_existe:
                         dueño_id = dueño.id_propietario
-                        propietario_tiene_vehiculo.create(id_propietario=dueño_id, matricula=matricula)
                         vehiculo.create(matricula=matricula, tag_rfid=tag_rfid, marca=marca, modelo=modelo, color=color, tipo_vehiculo=tipo)
+                        propietario_tiene_vehiculo.create(id_propietario=dueño_id, matricula=matricula)
                         psql_db.commit()
                         print("Vehiculo creado correctamente.")
                     else:
