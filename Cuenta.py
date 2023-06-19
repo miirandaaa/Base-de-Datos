@@ -3,18 +3,20 @@ from Config import *
 from Peaje import *
 import datetime
 
-def ingresar_cuenta (nro_cuenta, fecha_cuenta,id_prop):
+def ingresar_cuenta (nro_cuenta, fecha_cuenta, dni):
     with psql_db.atomic():
         try:
             if cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta):
                 print("La cuenta ingresada ya existe.")
             else:
-                if propietario.get_or_none(propietario.id_propietario == id_prop):
+                titular = persona.get_or_none(persona.dni == dni)
+                if titular:
                     data = fecha_cuenta.split("-")
-                    date = datetime.date(int(data[0]),int(data[1]),int(data[2])) 
-                    cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=date, saldo = 0, id_propietario = id_prop)
-                    psql_db.commit()
-                    print("Cuenta creada correctamente.")
+                    if int(data[1])<=12 and int(data[1])>0 and int(data[2])<=31 and int(data[2])>0:
+                        date = datetime.date(int(data[0]),int(data[1]),int(data[2])) 
+                        cuenta.create(nro_cuenta=nro_cuenta, fecha_creacion_cuenta=date, saldo = 0, id_propietario = titular.id_propietario)
+                        psql_db.commit()
+                        print("Cuenta creada correctamente.")
                 else:
                     print("El propietario ingresado no existe.")
         except IntegrityError():
@@ -34,7 +36,6 @@ def modificar_cuenta(num_cuenta, saldo):
     with psql_db.atomic():
         try:
             if cuenta.get_or_none(cuenta.nro_cuenta == num_cuenta):
-                
                 cuenta_a_modificar = cuenta.get_by_id(num_cuenta)
                 cuenta_a_modificar.saldo = saldo
                 cuenta_a_modificar.save()

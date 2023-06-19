@@ -2,15 +2,25 @@ from Tablas import *
 from Config import *
 from peewee import *
 
-def ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula, tag_rfid, marca, modelo, color, tipo):
+def ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula):
     with psql_db.atomic():
         try:
-            if persona.get_or_none(persona.dni == dni) and vehiculo.get_or_none(vehiculo.matricula == matricula):
-                print("El Propietario y el Vehiculo ingresados ya existen.")
+            v_ingresar = vehiculo.get_or_none(vehiculo.matricula == matricula)
+            if persona.get_or_none(persona.dni == dni):
+                print("El Propietario ingresados ya existe.")
             else:
                 nuevo_prop = propietario.create(tipo_propietario="Persona")
                 persona.create(dni=dni, id_propietario=nuevo_prop.id_propietario, nombres=nombres, apellidos=apellidos, celular=celular, email=email, direccion=direccion)
-                vehiculo.create(matricula=matricula, tag_rfid=tag_rfid, marca=marca, modelo=modelo, color=color, tipo_vehiculo=tipo, id_propietario=nuevo_prop.id_propietario)
+                if v_ingresar:
+                   propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
+                else:
+                    tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
+                    marca = input("Ingrese la marca del vehiculo: ")
+                    modelo = input("Ingrese el modelo del vehiculo: ")
+                    color = input("Ingrese el color del vehiculo: ")
+                    tipo = input("Ingrese el tipo de vehiculo: ")
+                    vehiculo.create(matricula=matricula, tag_rfid=tag_rfid, marca=marca, modelo=modelo, color=color, tipo_vehiculo=tipo, id_propietario=nuevo_prop.id_propietario)
+                    propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
                 print("Propietario y Vehiculo agregado correctamente.")
         except IntegrityError():
             psql_db.rollback()

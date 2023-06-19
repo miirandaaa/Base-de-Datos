@@ -54,17 +54,22 @@ def consultar_vehiuclo(vehiculo_aconsultar):
         except IntegrityError():
             print("Error: No se pudo consultar el vehiculo debido a una violación de restricción única.")
 
-def eliminar_vehiculo(vehiculo_aeliminar):
+def eliminar_vehiculo(matricula):
     with psql_db.atomic():
-        propietario_querido = propietario_tiene_vehiculo.get_by_id(vehiculo_aeliminar)
-        query = propietario_tiene_vehiculo.select(fn.COUNT(propietario_tiene_vehiculo.matricula)).where(propietario_tiene_vehiculo.id_propietario == propietario_querido.id_propietario)
-        count = query.scalar()
+        try:
+            v_eliminar = vehiculo.get_or_none(vehiculo.matricula == matricula)
+            if v_eliminar:
+                propietarios = propietario.select().join(propietario_tiene_vehiculo).where(propietario_tiene_vehiculo.matricula == matricula)
+                for propietario_instance in propietarios:
+                    count = propietario_tiene_vehiculo.select(fn.COUNT(propietario_tiene_vehiculo.id_propietario)).where(propietario_tiene_vehiculo.id_propietario == propietario_instance.id_propietario).scalar()
+                    if count == 1:
+                        propietario_instance.delete_instance(recursive=True) #chequear si la cuena es de el que pasa a ser pariente
+                    else:
+                        propietario_tiene_vehiculo.get(propietario_tiene_vehiculo.id_propietario == propietario_instance.id_propietario, propietario_tiene_vehiculo.matricula == matricula).delete_instance()
+                v_eliminar.delete_instance(recursive=True)
+                psql_db.commit()
+                print("Vehiculo eliminado correctamente.")
+        except IntegrityError():
+            psql_db.rollback()
         
-        if count == 1:
-            propietario_querido.delete_instance(recursive=True)
-            psql_db.commit()
-        else:
-            vehiculo_aeliminar.delete_instance(recursive=False)
-            psql_db.commit()
         
-            

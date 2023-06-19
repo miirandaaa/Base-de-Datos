@@ -15,6 +15,7 @@ def create_tables():
 if __name__ == '__main__':
    db_connect()
    create_tables()
+   #tipo_vehiculo.create(tipo ='Auto') and tipo_vehiculo.create(tipo ='Camioneta') and tipo_vehiculo.create(tipo ='Camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
    estado = True
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Salir \nOpcion: "))
@@ -28,20 +29,15 @@ if __name__ == '__main__':
             email = input("Ingrese el email del propietario: ")
             direccion = input("Ingrese la direccion del propietario: ")
             matricula = int(input("Ingrese la matricula del vehiculo: "))
-            tag_rfid = int(input("Ingrese el tag rfid del vehiculo: "))
-            marca = input("Ingrese la marca del vehiculo: ")
-            modelo = input("Ingrese el modelo del vehiculo: ")
-            color = input("Ingrese el color del vehiculo: ")
-            tipo = input("Ingrese el tipo de vehiculo: ")
-            ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula, tag_rfid, marca, modelo, color, tipo)
+            ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula)
             nuevo_prop = persona.get(persona.dni == dni)
             propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
             psql_db.commit()
          if ingresar == 2:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
             fecha_cuenta = input("Ingrese la fecha de creacion de la cuenta (YYYY-MM-DD): ")
-            id_prop = int(input("Ingrese el id del propietario: "))
-            ingresar_cuenta(nro_cuenta, fecha_cuenta, id_prop)
+            dni = int(input("Ingrese el id del propietario: "))
+            ingresar_cuenta(nro_cuenta, fecha_cuenta, dni)
          if ingresar == 3:
             dni_prop = int(input("Ingrese el dni del propietario: "))
             matricula = int(input("Ingrese la matricula del vehiculo: "))
@@ -125,15 +121,20 @@ if __name__ == '__main__':
             mod = int(input("Ingrese ""1"" si la ventanilla tiene rfid o ""0"" si no lo tiene: "))
             modificar_ventanilla(peaje_querido, nro_ventanilla, mod)
       if opcion == 3:
-         eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Propietario \n3 Eliminar Cuenta \n4 Eliminar Vehiculo \n5 Eliminar Peaje \n6 Eliminar Ventanilla \nOpcion: "))
+         eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Cuenta \n3 Eliminar Vehiculo \n4 Eliminar Peaje \n5 Eliminar Ventanilla \nOpcion: "))
          pass
          if eliminar == 1:
             dni = int(input("Ingrese el dni de la persona que desea eliminar: "))
             eliminar_persona(dni)
-         if eliminar == 5: 
+         if eliminar == 2:
+            pass
+         if eliminar == 3:
+            matricula = int(input("Ingrese la matricula del vehiculo que desea eliminar: "))
+            eliminar_vehiculo(matricula)
+         if eliminar == 4: 
             nombre = input("Ingrese el nombre del peaje que desea eliminar: ")
             eliminar_peaje(nombre)
-         if eliminar == 6:
+         if eliminar == 5:
             peaje_querido = input("Ingrese el nombre del peaje al que pertenece la ventanilla que desea eliminar: ")
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
             eliminar_ventanilla(peaje_querido, nro_ventanilla)
