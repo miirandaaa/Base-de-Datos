@@ -155,6 +155,6 @@ if __name__ == '__main__':
          if reporte == 1:
             reporte_titular_y_vehiculos()
          if reporte == 2:
-            pass
+            listado_cuenta_con_titular_y_vehiculos()
       if opcion == 6:
          estado = False

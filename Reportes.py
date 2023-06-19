@@ -19,4 +19,20 @@ def reporte_titular_y_vehiculos():
                 print(f"Vehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')} {fila.get('color')}")
 
 def listado_cuenta_con_titular_y_vehiculos():
-    
+   with psql_db.atomic():
+    reportes = (cuenta
+                .select(cuenta, propietario, vehiculo)
+                .join(propietario, on=(propietario.id_propietario == cuenta.id_propietario))
+                .join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == propietario.id_propietario))
+                .join(vehiculo, on=(vehiculo.matricula == propietario_tiene_vehiculo.matricula))
+                .dicts())
+
+    resultado = reportes.execute()
+    cuenta_pasada = None
+    for fila in resultado:
+        if cuenta_pasada is None or fila.get('nro_cuenta') != cuenta_pasada.get('nro_cuenta'):
+            print(f"Titular: {fila.get('id_propietario')} \nCuenta: {fila.get('nro_cuenta')} {fila.get('saldo')} {fila.get('fecha_creacion_cuenta')}")
+            cuenta_pasada = fila
+        print(f"Vehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')}")
+
+
