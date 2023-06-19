@@ -16,7 +16,7 @@ def create_tables():
 if __name__ == '__main__':
    db_connect()
    create_tables()
-   #tipo_vehiculo.create(tipo ='Auto') and tipo_vehiculo.create(tipo ='Camioneta') and tipo_vehiculo.create(tipo ='Camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
+   #tipo_vehiculo.create(tipo ='auto') and tipo_vehiculo.create(tipo ='camioneta') and tipo_vehiculo.create(tipo ='camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
    estado = True
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Salir \nOpcion: "))
@@ -151,7 +151,7 @@ if __name__ == '__main__':
          if consultar == 6:
             consultar_ventanilla()
       if opcion == 5:
-         reporte = int(input("\n1 Listado de Propietario y sus Vehiculos \n2 Listado de Cuentas con su Titular y sus Vehiculos asociados"))
+         reporte = int(input("\n1 Listado de Propietario y sus Vehiculos \n2 Listado de Cuentas con su Titular y sus Vehiculos asociados \nOpcion:"))
          if reporte == 1:
             reporte_titular_y_vehiculos()
          if reporte == 2:
