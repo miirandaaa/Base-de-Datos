@@ -47,7 +47,7 @@ def modificar_vehiculo(key, modificar, opcion):
             db_conn['rdbms'].rollback()
             print("Error: No se pudo modificar el vehiculo debido a una violación de restricción única.")
 
-def consultar_vehiuclo():
+def consultar_vehiculo():
     with db_conn['rdbms'].atomic():
         try:
             vehiculo_aconsultar = int(input("Ingrese la matricula del vehiculo: "))
