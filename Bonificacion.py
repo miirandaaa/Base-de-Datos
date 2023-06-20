@@ -18,20 +18,5 @@ def insertar_bonificacion(bonificacion):
    
     bonificaciones.insert_one(bonificacion)
 
-# Ejemplo de uso
-bonificacion = {
-    "nro_cuenta": 123,
-    "nombre_peaje": "Peaje A",
-    "porcentaje_descuento": 10,
-    "motivo": "Cliente frecuente",
-    "fecha_otorgacion": "2023-06-19",
-    "fecha_renovacion": "2024-06-19",
-    "comprobante_domicilio": "www.comprobante.com",
 
-}
 
-try:
-    insertar_bonificacion(bonificacion)
-    print("Bonificación insertada correctamente")
-except Exception as e:
-    print(e)
