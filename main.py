@@ -14,7 +14,7 @@ from Debito import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
-   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,])
+   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito])
 
 def insertar_bonificacion():
     bonificacion = {
@@ -252,7 +252,7 @@ if __name__ == '__main__':
          if registro == 1:
             acreditacion()   
          if registro == 2:
-            debito()
+            debitar()
       if opcion == 7:
          estado = False
       if opcion == 8:

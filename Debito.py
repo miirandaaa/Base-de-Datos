@@ -3,7 +3,7 @@ from Config import *
 from Cuenta import *
 from datetime import datetime
 
-def debito():
+def debitar():
     with db_conn['rdbms'].atomic():
         try:
             fecha_hora_actual = datetime.now()
@@ -15,10 +15,14 @@ def debito():
 
             if vehiculo.get_or_none(vehiculo.matricula == matricula):
                 if ventanilla.get_or_none(ventanilla.id_peaje == id_peaje, ventanilla.nro_ventanilla == nro_ventanilla):
-                    ventanilla_id = ventanilla.get_by_id(id_peaje,nro_ventanilla)
-                    vehiculo_pasada = vehiculo.get_by_id(vehiculo.matricula == matricula)
+                    print("Enero")
+                    ventanilla_id = ventanilla.get(id_peaje = id_peaje,nro_ventanilla = nro_ventanilla)
+                    print("Febrero")
+                    vehiculo_pasada = vehiculo.get_by_id(matricula)
+                    print("Marzo")
                     tarifa_pasada = tarifa.select(tarifa.valor).where(tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo and tarifa.fecha_vigencia <= fecha_actual)
-                    debito.create(matricula = matricula, id_ventanilla = ventanilla_id, fehca_hora_debito = fecha_hora_actual, importe = tarifa_pasada)
+                    print("Abril")
+                    debito.create
                     #cuenta_debitar = cuenta.join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == cuenta.id_propietario)).join(vehiculo, on=(vehiculo.matricula == matricula, propietario_tiene_vehiculo.matricula == vehiculo.matricula)).select(cuenta.nro_cuenta)
                     
                     db_conn['rdbms'].commit()
