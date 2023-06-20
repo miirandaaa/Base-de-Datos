@@ -220,3 +220,7 @@ if __name__ == '__main__':
             debito()
       if opcion == 7:
          estado = False
+      if opcion == 8:
+         es_pariente= persona_pariente.select().where(persona_pariente.dni_pariente == 12344)
+         result= es_pariente.execute()
+         
