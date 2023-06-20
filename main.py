@@ -9,12 +9,50 @@ from Vehiculo import *
 from Propietario import *
 from Reportes import *
 from Credito import *
+from Bonificacion import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
    db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,])
 
+def insertar_bonificacion():
+    bonificacion = {
+            "nro_cuenta": int(input("Ingrese el numero de cuenta: ")),
+            "nombre_peaje": input("Ingrese el nombre del peaje: "),
+            "porcentaje_descuento": int(input("Ingrese el porcentaje de descuento: ")),
+            "motivo": input("Ingrese el motivo de la bonificacion: "),
+            "fecha_otorgacion": input("Ingrese la fecha de otorgacion (YYYY-MM-DD): "),
+            "fecha_renovacion": input("Ingrese la fecha de renovacion (YYYY-MM-DD): "),
+            "comprobante_domicilio": input("Ingrese el comprobante de domicilio: "),	
 
+   	      }
+    bonificacion['_id'] = f"{bonificacion['nro_cuenta']}-{bonificacion['nombre_peaje']}-{bonificacion['fecha_otorgacion']}"
+    cuenta_querida= cuenta.get_or_none(cuenta.nro_cuenta == bonificacion["nro_cuenta"])
+    peaje_querido = peaje.get_or_none(peaje.nombre == bonificacion["nombre_peaje"])
+            
+    if cuenta_querida and peaje_querido:
+        try:
+            bonificaciones.insert_one(bonificacion)
+            print("Bonificacion ingresada correctamente")
+        except:
+            print("Error al ingresar la bonificacion")
+    else:           
+        print("No existe la cuenta o el peaje")
+
+def buscar_bonificacion():
+    nro_cuenta= int(input("Ingrese el numero de cuenta: "))
+    nombre_peaje = input("Ingrese el nombre del peaje: ")
+    fecha_otorgacion = input("Ingrese la fecha de otorgacion: ")
+    cuenta_q = cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta)
+    peaje_q = peaje.get_or_none(peaje.nombre == nombre_peaje)
+    if cuenta_q and peaje_q:
+        try:
+            bonificacion = bonificaciones.find_one({"nro_cuenta": nro_cuenta, "nombre_peaje": nombre_peaje, "fecha_otorgacion": fecha_otorgacion})
+            print(bonificacion)
+        except:
+            print("La bonificacion no existe.")
+    else:
+        print("La cuenta o el peaje no existe.")
 
 if __name__ == '__main__':
    db_connect()
@@ -72,24 +110,8 @@ if __name__ == '__main__':
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
             ingresar_ventanilla(nombre_p, nro_ventanilla, tiene_rfid)
          if ingresar == 6:
-            bonificacion = {
-            "nro_cuenta": int(input("Ingrese el numero de cuenta: ")),
-            "nombre_peaje": input("Ingrese el nombre del peaje: "),
-            "porcentaje_descuento": int(input("Ingrese el porcentaje de descuento: ")),
-            "motivo": input("Ingrese el motivo de la bonificacion: "),
-            "fecha_otorgacion": input("Ingrese la fecha de otorgacion (YYYY-MM-DD): "),
-            "fecha_renovacion": input("Ingrese la fecha de renovacion (YYYY-MM-DD): "),
-            "comprobante_domicilio": input("Ingrese el comprobante de domicilio: "),	
-
-   	      }
-            cuenta= cuenta.get_or_none(cuenta.nro_cuenta == bonificacion["nro_cuenta"])
-            peaje = peaje.get_or_none(peaje.nombre == bonificacion["nombre_peaje"])
+            insertar_bonificacion()
             
-            if cuenta and peaje:
-               bonificaciones.insert_one(bonificacion)
-               print("Bonificacion ingresada correctamente")
-            else:
-               print("No existe la cuenta o el peaje")
 
       if opcion == 2:
          modificar = int(input("\n1 Modificar Persona \n2 Modificar Cuenta \n3 Modificar Vehiculo \n4 Modificar Peaje \n5 Modificar Ventanilla  \nOpcion: "))
@@ -169,7 +191,7 @@ if __name__ == '__main__':
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla que desea eliminar: "))
             eliminar_ventanilla(peaje_querido, nro_ventanilla)
       if opcion == 4:
-         consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \nOpcion: "))
+         consultar = int(input("\n1 Consultar Persona \n2 Consultar Propietario \n3 Consultar Cuenta \n4 Consultar Vehiculo \n5 Consultar Peaje \n6 Consultar Ventanilla \n7 Consultar Bonificacion \nOpcion: "))
          if consultar == 1:
             consultar_persona()
          if consultar == 2:
@@ -182,6 +204,8 @@ if __name__ == '__main__':
             consultar_peaje()
          if consultar == 6:
             consultar_ventanilla()
+         if consultar == 7:
+            buscar_bonificacion()
       if opcion == 5:
          reporte = int(input("\n1 Listado de Propietario y sus Vehiculos \n2 Listado de Cuentas con su Titular y sus Vehiculos asociados \nOpcion:"))
          if reporte == 1:
