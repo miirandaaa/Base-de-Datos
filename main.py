@@ -12,7 +12,7 @@ from Credito import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
-   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,debito,])
+   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion])
 
 
 if __name__ == '__main__':
