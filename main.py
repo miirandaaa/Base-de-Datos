@@ -10,6 +10,7 @@ from Propietario import *
 from Reportes import *
 from Credito import *
 from Bonificacion import *
+from Debito import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
@@ -217,6 +218,6 @@ if __name__ == '__main__':
          if registro == 1:
             acreditacion()   
          if registro == 2:
-            pass
+            debito()
       if opcion == 7:
          estado = False
