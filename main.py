@@ -15,15 +15,18 @@ def create_tables():
    db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion])
 
 
+
 if __name__ == '__main__':
    db_connect()
    create_tables()
+   db = db_conn['nosql']['dbd2g04']
+   bonificaciones = db['bonificaciones']
    #tipo_vehiculo.create(tipo ='auto') and tipo_vehiculo.create(tipo ='camioneta') and tipo_vehiculo.create(tipo ='camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
    estado = True
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Registar credito o debito \n7 Salir \nOpcion: "))
       if opcion == 1:
-         ingresar = int(input("\n1 Ingersar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \nOpcion: "))
+         ingresar = int(input("\n1 Ingresar Propietario \n2 Ingresar Cuenta \n3 Ingresar Vehiculo \n4 Ingresar Peaje \n5 Ingresar Ventanilla \n6 Ingresar Bonificacion \nOpcion: "))
          if ingresar == 1:
             dni = int(input("Ingrese el dni del propietario: "))
             nombres = input("Ingrese los nombres del propietario: ")
@@ -61,8 +64,28 @@ if __name__ == '__main__':
             nro_ventanilla = int(input("Ingrese el numero de la ventanilla: "))
             tiene_rfid = int(input("Ingrese 1 si la ventanilla tiene rfid o 0 si no lo tiene: "))
             ingresar_ventanilla(nombre_p, nro_ventanilla, tiene_rfid)
+         if ingresar == 6:
+            bonificacion = {
+            "nro_cuenta": int(input("Ingrese el numero de cuenta: ")),
+            "nombre_peaje": input("Ingrese el nombre del peaje: "),
+            "porcentaje_descuento": int(input("Ingrese el porcentaje de descuento: ")),
+            "motivo": input("Ingrese el motivo de la bonificacion: "),
+            "fecha_otorgacion": input("Ingrese la fecha de otorgacion (YYYY-MM-DD): "),
+            "fecha_renovacion": input("Ingrese la fecha de renovacion (YYYY-MM-DD): "),
+            "comprobante_domicilio": input("Ingrese el comprobante de domicilio: "),	
+
+   	      }
+            cuenta= cuenta.get_or_none(cuenta.nro_cuenta == bonificacion["nro_cuenta"])
+            peaje = peaje.get_or_none(peaje.nombre == bonificacion["nombre_peaje"])
+            
+            if cuenta and peaje:
+               bonificaciones.insert_one(bonificacion)
+               print("Bonificacion ingresada correctamente")
+            else:
+               print("No existe la cuenta o el peaje")
+
       if opcion == 2:
-         modificar = int(input("\n1 Modificar Persona \n2 Modificar Cuenta \n3 Modificar Vehiculo \n4 Modificar Peaje \n5 Modificar Ventanilla \nOpcion: "))
+         modificar = int(input("\n1 Modificar Persona \n2 Modificar Cuenta \n3 Modificar Vehiculo \n4 Modificar Peaje \n5 Modificar Ventanilla  \nOpcion: "))
          if modificar == 1:
             mod = int(input("\n1 Modificar nombres \n2 Modificar apellidos \n3 Modificar celular \n4 Modificar email \n5 Modificar direccion \n6 Volver al menu \nOpcion: "))
             dni = int(input("Ingrese el dni de la persona que desea modificar: "))
@@ -124,7 +147,7 @@ if __name__ == '__main__':
             mod = int(input("Ingrese ""1"" si la ventanilla tiene rfid o ""0"" si no lo tiene: "))
             modificar_ventanilla(peaje_querido, nro_ventanilla, mod)
       if opcion == 3:
-         eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Cuenta \n3 Eliminar Vehiculo \n4 Eliminar Peaje \n5 Eliminar Ventanilla \nOpcion: "))
+         eliminar = int(input("\n1 Eliminar Persona \n2 Eliminar Cuenta \n3 Eliminar Vehiculo \n4 Eliminar Peaje \n5 Eliminar Ventanilla  \nOpcion: "))
          pass
          if eliminar == 1:
             eliminar_persona()

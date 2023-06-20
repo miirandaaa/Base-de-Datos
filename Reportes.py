@@ -13,10 +13,14 @@ def reporte_titular_y_vehiculos():
         fila_pasada = None
         for fila in resultado:
             if fila_pasada is None or fila.get('id_propietario') != fila_pasada.get('id_propietario'):
-                print(f"Propietario: {fila.get('dni')} {fila.get('nombres')} {fila.get('apellidos')} {fila.get('celular')} {fila.get('direccion')} \nVehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')} {fila.get('color')}")
+                print(f"\n\033[1mPropietario:\033\n  {fila.get('dni')} – {fila.get('nombres')} {fila.get('apellidos')}\n")
+                print(f"    {'Matricula':<15}{'Marca':<15}{'Modelo':<15}{'Color':<15}")
+                print(f"    {fila.get('matricula'):<15}{fila.get('marca'):<15}{fila.get('modelo'):<15}{fila.get('color'):<15}")
                 fila_pasada = fila
             else:
-                print(f"Vehiculo: {fila.get('matricula')} {fila.get('marca')} {fila.get('modelo')} {fila.get('color')}")
+                print(f"    {fila.get('matricula'):<15}{fila.get('marca'):<15}{fila.get('modelo'):<15}{fila.get('color'):<15}")
+
+
 
 def listado_cuenta_con_titular_y_vehiculos():
    with db_conn['rdbms'].atomic():
