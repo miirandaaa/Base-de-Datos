@@ -60,6 +60,8 @@ if __name__ == '__main__':
    db = db_conn['nosql']['dbd2g04']
    bonificaciones = db['bonificaciones']
    #tipo_vehiculo.create(tipo ='auto') and tipo_vehiculo.create(tipo ='camioneta') and tipo_vehiculo.create(tipo ='camion') and tipo_vehiculo.create(tipo='Bus') and tipo_vehiculo.create(tipo='Moto')
+   tarifa.create(tipo_vehiculo = "Auto", fecha_vigencia = datetime.date(2023,1,1), valor = 100)
+   tarifa.create(tipo_vehiculo = "Auto", fecha_vigencia = datetime.date(2022,1,1), valor = 50)
    estado = True
    while estado:
       opcion = int(input("\n1 Ingresar Datos \n2 Modifcar Datos \n3 Eliminar Datos \n4 Consultar Datos \n5 Reportes \n6 Registar credito o debito \n7 Salir \nOpcion: "))
