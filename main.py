@@ -41,19 +41,18 @@ def insertar_bonificacion():
         print("No existe la cuenta o el peaje")
 
 def buscar_bonificacion():
-    nro_cuenta= int(input("Ingrese el numero de cuenta: "))
-    nombre_peaje = input("Ingrese el nombre del peaje: ")
-    fecha_otorgacion = input("Ingrese la fecha de otorgacion: ")
-    cuenta_q = cuenta.get_or_none(cuenta.nro_cuenta == nro_cuenta)
-    peaje_q = peaje.get_or_none(peaje.nombre == nombre_peaje)
-    if cuenta_q and peaje_q:
-        try:
-            bonificacion = bonificaciones.find_one({"nro_cuenta": nro_cuenta, "nombre_peaje": nombre_peaje, "fecha_otorgacion": fecha_otorgacion})
-            print(bonificacion)
-        except:
-            print("La bonificacion no existe.")
-    else:
-        print("La cuenta o el peaje no existe.")
+   nro_cuenta= int(input("Ingrese el numero de cuenta: "))
+   nombre_peaje = input("Ingrese el nombre del peaje: ")
+   fecha_otorgacion = input("Ingrese la fecha de otorgacion: ")
+   id_bonificacion = f"{nro_cuenta}-{nombre_peaje}-{fecha_otorgacion}"
+   bonificacion = bonificaciones.find_one({"_id": id_bonificacion})
+   if bonificacion:
+        print("Bonificacion encontrada")
+        print(bonificacion)
+   else:
+         print("Bonificacion no encontrada")
+    
+  
 
 if __name__ == '__main__':
    db_connect()
