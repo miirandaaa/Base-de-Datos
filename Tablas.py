@@ -86,11 +86,11 @@ class credito(BaseModel):
    class Meta:
       primary_key = CompositeKey('nro_cuenta', 'fecha_hora_credito')
 
-class debito(BaseModel):
+'''class debito(BaseModel):
    matricula = ForeignKeyField(vehiculo)
-   nombre_peaje = CharField(max_length=30)
-   nro_ventanilla = SmallIntegerField()
+   nombre_peaje = ForeignKeyField(ventanilla)
+   nro_ventanilla = ForeignKeyField(ventanilla)
    fecha_hora_debito = DateTimeField()
    importe_debito = DecimalField(max_digits=10, decimal_places=2)
    class Meta:
-      primary_key = CompositeKey('matricula', 'fecha_hora_debito')
+      primary_key = CompositeKey('matricula', 'fecha_hora_debito')'''
