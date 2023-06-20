@@ -14,7 +14,7 @@ def debito():
                 vehiculo_pasada = vehiculo.get_by_id(vehiculo.matricula == matricula)
                 tarifa_pasada = tarifa.select(tarifa.valor).where(tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo and tarifa.fecha_vigencia >= fecha_actual)
                 print(tarifa_pasada)
-            print('Debito exitoso.')
+                print('Debito exitoso.')
 
         except IntegrityError():
             db_conn['rdbms'].rollback()
