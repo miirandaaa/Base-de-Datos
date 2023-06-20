@@ -40,7 +40,7 @@ def insertar_bonificacion():
     else:           
         print("No existe la cuenta o el peaje")
 
-def buscar_bonificacion():
+def consultar_bonificacion():
    nro_cuenta= int(input("Ingrese el numero de cuenta: "))
    nombre_peaje = input("Ingrese el nombre del peaje: ")
    fecha_otorgacion = input("Ingrese la fecha de otorgacion: ")
@@ -51,8 +51,43 @@ def buscar_bonificacion():
         print(bonificacion)
    else:
          print("Bonificacion no encontrada")
-    
-  
+
+
+def buscar_bonificacion(nro_cuenta,nombre_peaje, fecha):
+   id_bonificacion = f"{nro_cuenta}-{nombre_peaje}-{fecha}"
+   bonificacion = bonificaciones.find_one({"_id": id_bonificacion})
+   return bonificacion
+
+def listado_cuenta_con_titular_y_vehiculos():
+    with db_conn['rdbms'].atomic():
+        reportes = (cuenta
+                    .select(cuenta, propietario, vehiculo, persona)
+                    .join(propietario, on=(propietario.id_propietario == cuenta.id_propietario))
+                    .join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == propietario.id_propietario))
+                    .join(vehiculo, on=(vehiculo.matricula == propietario_tiene_vehiculo.matricula))
+                    .join(persona, on=(persona.id_propietario == propietario.id_propietario))
+                    .dicts())
+        
+        resultado = reportes.execute()
+        cuenta_pasada = None
+        for fila in resultado:
+            if cuenta_pasada is None or fila.get('nro_cuenta') != cuenta_pasada.get('nro_cuenta'):
+                
+                
+                print(f"\nCuenta: {fila.get('nro_cuenta')} \nTitular: {fila.get('id_propietario')} - {fila.get('nombres')} {fila.get('apellidos')}")
+                cuenta_pasada = fila
+                print(f"\nVehículo(s):")
+                print(f"Matricula  Marca       Modelo    Propietario")
+                print(f"{fila.get('matricula')}    {fila.get('marca')}    {fila.get('modelo')}    {fila.get('id_propietario')} – {fila.get('nombres')} {fila.get('apellidos')} (Titular)")
+                # Buscar parientes que también usan la cuenta
+                parientes = (persona_pariente
+                     .select(persona_pariente, persona, propietario, propietario_tiene_vehiculo, vehiculo)
+                     .where(persona_pariente.dni_pariente == fila.get('dni')).join(persona, on=(persona.dni == persona_pariente.dni)).join(propietario, on=(propietario.id_propietario == persona.id_propietario)).join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == propietario.id_propietario)).join(vehiculo, on=(vehiculo.matricula == propietario_tiene_vehiculo.matricula)).dicts())
+                for pariente in parientes.execute():
+                    print(f"{pariente.get('matricula')}    {pariente.get('marca')}    {pariente.get('modelo')}    {pariente.get('id_propietario')} – {pariente.get('nombres')} {pariente.get('apellidos')} ({pariente.get('parentesco')})")
+            bonificaciones_1= bonificaciones.find({'nro_cuenta': fila.get('nro_cuenta')})
+            for bonificacion in bonificaciones_1:
+                print(f"\nEsta cuenta tiene una bonificacion en el peaje {bonificacion.get('nombre_peaje')} de {bonificacion.get('porcentaje_descuento')}%")
 
 if __name__ == '__main__':
    db_connect()
@@ -205,7 +240,7 @@ if __name__ == '__main__':
          if consultar == 6:
             consultar_ventanilla()
          if consultar == 7:
-            buscar_bonificacion()
+            consultar_bonificacion()
       if opcion == 5:
          reporte = int(input("\n1 Listado de Propietario y sus Vehiculos \n2 Listado de Cuentas con su Titular y sus Vehiculos asociados \nOpcion:"))
          if reporte == 1:
