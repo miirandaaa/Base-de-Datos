@@ -17,11 +17,16 @@ def debitar():
                 vent = ventanilla.get(id_peaje = id_peaje, nro_ventanilla = nro_ventanilla)
                 check = ventanilla.get_or_none(ventanilla.id_ventanilla == vent.id_ventanilla)
                 if check:
-                    ventanilla_id = ventanilla.get(id_peaje = id_peaje,nro_ventanilla = nro_ventanilla)
                     vehiculo_pasada = vehiculo.get_by_id(matricula)
                     tarifa_pasada = tarifa.select(tarifa.valor).where((tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo) & (tarifa.fecha_vigencia <= fecha_actual)).limit(1)
                     cuenta_a_debitar = (propietario_tiene_vehiculo.select(cuenta.nro_cuenta).where(propietario_tiene_vehiculo.matricula == matricula).join(cuenta, on=(propietario_tiene_vehiculo.id_propietario == cuenta.id_propietario)))
-                    debito.create(matricula = matricula,ventanilla_id = vent.id_ventanilla, fecha_hora_debito = fecha_hora_actual, importe_debito = tarifa_pasada, numero_cuenta = cuenta_a_debitar)
+                    debito.create(matricula = matricula,id_ventanilla = vent.id_ventanilla, fecha_hora_debito = fecha_hora_actual, importe_debito = tarifa_pasada, numero_cuenta = cuenta_a_debitar)
+                    
+                    cuenta_debito = cuenta.get_by_id(cuenta_a_debitar)
+                    saldo_pasado = cuenta_debito.saldo
+                    nuevo_saldo = int(saldo_pasado - tarifa_pasada)
+                    cuenta_debito.saldo = nuevo_saldo
+                    cuenta_debito.save()
                     db_conn['rdbms'].commit()
                     print('Debito exitoso.')
         except IntegrityError:
