@@ -12,7 +12,7 @@ from Credito import *
 db_conn['rdbms'] = db_conn['rdbms']
         
 def create_tables():
-   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion])
+   db_conn['rdbms'].create_tables([peaje,persona,propietario,propietario_tiene_vehiculo,vehiculo,ventanilla,empresa,tipo_vehiculo,tarifa,cuenta,persona_pariente,credito,bonificacion,])
 
 
 
@@ -36,19 +36,11 @@ if __name__ == '__main__':
             direccion = input("Ingrese la direccion del propietario: ")
             matricula = int(input("Ingrese la matricula del vehiculo: "))
             ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula)
-            nuevo_prop = persona.get(persona.dni == dni)
-            propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
             asociar=int(input("Desea asociar su vehiculo a una cuenta de un pariente? \n1 Si \n2 No \nOpcion: "))
             if asociar==1:
                dni_pariente=int(input("Ingrese el dni del pariente: "))
                tipo=input("Ingrese el tipo de parentesco:  ")
-               pariente=persona.get_or_none(persona.dni==dni_pariente)
-               if pariente :
-                  persona_pariente.create( dni=dni, dni_pariente=dni_pariente,parentesco=tipo)
-
-                  print("Pariente asociado correctamente")
-               else:
-                  print("No existe el pariente")
+               asociar_pariente(dni,dni_pariente,tipo)
             if asociar==2:
                print("No se asociara el vehiculo a una cuenta de un pariente")
 

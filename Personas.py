@@ -61,3 +61,16 @@ def eliminar_persona():
         except IntegrityError():
             db_conn['rdbms'].rollback()
             print("Error: No se pudo eliminar la persona debido a una violación de restricción única.")
+def asociar_pariente(dni,dni_pariente,parentesco):
+    with db_conn['rdbms'].atomic():
+        try:
+            pariente=persona.get_or_none(persona.dni==dni_pariente)
+            if pariente :
+                persona_pariente.create( dni=dni, dni_pariente=dni_pariente,parentesco=parentesco)
+                db_conn['rdbms'].commit()
+                print("Pariente asociado correctamente")
+            else:
+                print("No existe el pariente")
+        except IntegrityError():
+            db_conn['rdbms'].rollback()
+            print("Error: No se pudo asociar el pariente debido a una violación de restricción única.")
