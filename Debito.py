@@ -24,7 +24,8 @@ def debitar():
                     
                     cuenta_debito = cuenta.get_by_id(cuenta_a_debitar)
                     saldo_pasado = cuenta_debito.saldo
-                    nuevo_saldo = int(saldo_pasado - tarifa_pasada)
+                    monto_debitar = tarifa_pasada.scalar()
+                    nuevo_saldo = int(saldo_pasado - monto_debitar)
                     cuenta_debito.saldo = nuevo_saldo
                     cuenta_debito.save()
                     db_conn['rdbms'].commit()
