@@ -73,6 +73,6 @@ def listado_cuenta_con_titular_y_vehiculosf():
                      .where(persona_pariente.dni_pariente == fila.get('dni')).join(persona, on=(persona.dni == persona_pariente.dni)).join(propietario, on=(propietario.id_propietario == persona.id_propietario)).join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == propietario.id_propietario)).join(vehiculo, on=(vehiculo.matricula == propietario_tiene_vehiculo.matricula)).dicts())
                 for pariente in parientes.execute():
                     print(f"{pariente.get('matricula')}    {pariente.get('marca')}    {pariente.get('modelo')}    {pariente.get('id_propietario')} – {pariente.get('nombres')} {pariente.get('apellidos')} ({pariente.get('parentesco')})")
-            bonificaciones= bonificaciones.find({'nro_cuenta': fila.get('nro_cuenta')})
-            for bonificacion in bonificaciones:
-                print(f"Esta cuenta tiene una bonificacion en el peaje {bonificacion.get('nombre_peaje')} de {bonificacion.get('porcentaje_descuento')}")
+                bonificaciones= bonificaciones.find({'nro_cuenta': fila.get('nro_cuenta')})
+                for bonificacion in bonificaciones:
+                    print(f"Esta cuenta tiene una bonificacion en el peaje {bonificacion.get('nombre_peaje')} de {bonificacion.get('porcentaje_descuento')}")

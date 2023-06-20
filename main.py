@@ -88,7 +88,52 @@ def listado_cuenta_con_titular_y_vehiculos():
             bonificaciones_1= bonificaciones.find({'nro_cuenta': fila.get('nro_cuenta')})
             for bonificacion in bonificaciones_1:
                 print(f"\nEsta cuenta tiene una bonificacion en el peaje {bonificacion.get('nombre_peaje')} de {bonificacion.get('porcentaje_descuento')}%")
+def debitar():
+    with db_conn['rdbms'].atomic():
+        try:
+            fecha_hora_actual = datetime.now()
+            fecha_actual = datetime(fecha_hora_actual.year,fecha_hora_actual.month,fecha_hora_actual.day,0,0)
+            bonificacion = 10
+            matricula = int(input('Ingrese matricula del vehiculo '))
 
+            if vehiculo.get_or_none(vehiculo.matricula == matricula):
+                id_peaje = int(input('Ingrese id peaje '))
+                nro_ventanilla = int(input('Ingrese numero ventanilla '))
+                vent = ventanilla.get(id_peaje = id_peaje, nro_ventanilla = nro_ventanilla)
+                check = ventanilla.get_or_none(ventanilla.id_ventanilla == vent.id_ventanilla)
+                if check:
+                    vehiculo_pasada = vehiculo.get_by_id(matricula)
+                    tarifa_pasada = tarifa.select(tarifa.valor).where((tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo) & (tarifa.fecha_vigencia <= fecha_actual)).limit(1)
+                    
+                    dni_prop = persona.select(persona.dni).where(propietario_tiene_vehiculo.matricula == matricula).join(propietario_tiene_vehiculo, on=(persona.id_propietario == propietario_tiene_vehiculo.id_propietario)) 
+                    dni_pariente = persona_pariente.select(persona_pariente.dni_pariente).where(persona_pariente.dni == dni_prop)
+
+                    if dni_pariente.scalar() is None:
+                        cuenta_a_debitar = (propietario_tiene_vehiculo.select(cuenta.nro_cuenta).where(propietario_tiene_vehiculo.matricula == matricula).join(cuenta, on=(propietario_tiene_vehiculo.id_propietario == cuenta.id_propietario)))
+                        cuenta_debito = cuenta.get_by_id(cuenta_a_debitar)
+                    else:
+                        jefe = persona.get_by_id(dni_pariente)
+                        cuenta_debito = cuenta.get(id_propietario = jefe.id_propietario)
+
+                    peaje_1 = peaje.get_by_id(id_peaje) 
+                    bonificacion_1= bonificaciones.find_one({'nro_cuenta': cuenta_debito.nro_cuenta,'nombre_peaje': peaje_1.nombre})
+                    if bonificacion_1 is  None:
+                        descuento = 0
+                    else:
+                       descuento=int(bonificacion_1.get('porcentaje_descuento'))
+                       
+                    monto_debitar = ((tarifa_pasada.scalar()*(100-descuento))/100)
+                    debito.create(matricula = matricula,id_ventanilla = vent.id_ventanilla, fecha_hora_debito = fecha_hora_actual, importe_debito = monto_debitar, numero_cuenta = cuenta_debito.nro_cuenta)
+                    saldo_pasado = cuenta_debito.saldo
+                    
+                    nuevo_saldo = int(saldo_pasado - monto_debitar)
+                    cuenta_debito.saldo = nuevo_saldo
+                    cuenta_debito.save()
+                    db_conn['rdbms'].commit()
+                    print('Debito exitoso.')
+        except IntegrityError:
+            db_conn['rdbms'].rollback()
+            print("Error: No se pudo realizar la acreditación.")
 if __name__ == '__main__':
    db_connect()
    create_tables()
