@@ -170,7 +170,7 @@ if __name__ == '__main__':
          if consultar == 3:
             consultar_cuenta()
          if consultar == 4:
-            consultar_vehiuclo()
+            consultar_vehiculo()
          if consultar == 5:
             consultar_peaje()
          if consultar == 6:
