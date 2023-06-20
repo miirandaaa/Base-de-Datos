@@ -38,6 +38,21 @@ if __name__ == '__main__':
             ingresar_propietario(dni, nombres, apellidos, celular, email, direccion, matricula)
             nuevo_prop = persona.get(persona.dni == dni)
             propietario_tiene_vehiculo.create(id_propietario=nuevo_prop.id_propietario, matricula=matricula)
+            asociar=int(input("Desea asociar su vehiculo a una cuenta de un pariente? \n1 Si \n2 No \nOpcion: "))
+            if asociar==1:
+               dni_pariente=int(input("Ingrese el dni del pariente: "))
+               tipo=input("Ingrese el tipo de parentesco:  ")
+               pariente=persona.get_or_none(persona.dni==dni_pariente)
+               if pariente :
+                  persona_pariente.create( dni=dni, dni_pariente=dni_pariente,parentesco=tipo)
+
+                  print("Pariente asociado correctamente")
+               else:
+                  print("No existe el pariente")
+            if asociar==2:
+               print("No se asociara el vehiculo a una cuenta de un pariente")
+
+
             db_conn['rdbms'].commit()
          if ingresar == 2:
             nro_cuenta = int(input("Ingrese el numero de cuenta: "))
