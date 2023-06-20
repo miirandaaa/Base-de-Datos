@@ -17,7 +17,9 @@ def acreditacion():
                 cuenta_a_acreditar = cuenta.get_by_id(nro_cuenta_acred)
                 saldo_pasado = cuenta_a_acreditar.saldo
                 nuevo_saldo = int(saldo_pasado + monto_acred)
-                modificar_cuenta(nro_cuenta_acred,nuevo_saldo)
+                cuenta_a_acreditar.saldo = nuevo_saldo
+                cuenta_a_acreditar.save()
+                db_conn['rdbms'].commit()
                 print('Acreditación exitosa.')
         except IntegrityError():
             db_conn['rdbms'].rollback()
