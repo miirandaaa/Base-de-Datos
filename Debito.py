@@ -10,25 +10,21 @@ def debitar():
             fecha_actual = datetime(fecha_hora_actual.year,fecha_hora_actual.month,fecha_hora_actual.day,0,0)
             bonificacion = 10
             matricula = int(input('Ingrese matricula del vehiculo '))
-            id_peaje = int(input('Ingrese id peaje '))
-            nro_ventanilla = int(input('Ingrese numero ventanilla '))
 
             if vehiculo.get_or_none(vehiculo.matricula == matricula):
-                if ventanilla.get_or_none(ventanilla.id_peaje == id_peaje, ventanilla.nro_ventanilla == nro_ventanilla):
-                    print("Enero")
+                id_peaje = int(input('Ingrese id peaje '))
+                nro_ventanilla = int(input('Ingrese numero ventanilla '))
+                vent = ventanilla.get(id_peaje = id_peaje, nro_ventanilla = nro_ventanilla)
+                check = ventanilla.get_or_none(ventanilla.id_ventanilla == vent.id_ventanilla)
+                if check:
                     ventanilla_id = ventanilla.get(id_peaje = id_peaje,nro_ventanilla = nro_ventanilla)
-                    print("Febrero")
                     vehiculo_pasada = vehiculo.get_by_id(matricula)
-                    print("Marzo")
-                    tarifa_pasada = tarifa.select(tarifa.valor).where(tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo and tarifa.fecha_vigencia <= fecha_actual)
-                    print("Abril")
-                    debito.create
-                    #cuenta_debitar = cuenta.join(propietario_tiene_vehiculo, on=(propietario_tiene_vehiculo.id_propietario == cuenta.id_propietario)).join(vehiculo, on=(vehiculo.matricula == matricula, propietario_tiene_vehiculo.matricula == vehiculo.matricula)).select(cuenta.nro_cuenta)
-                    
+                    tarifa_pasada = tarifa.select(tarifa.valor).where((tarifa.tipo_vehiculo == vehiculo_pasada.tipo_vehiculo) & (tarifa.fecha_vigencia <= fecha_actual)).limit(1)
+                    cuenta_a_debitar = (propietario_tiene_vehiculo.select(cuenta.nro_cuenta).where(propietario_tiene_vehiculo.matricula == matricula).join(cuenta, on=(propietario_tiene_vehiculo.id_propietario == cuenta.id_propietario)))
+                    debito.create(matricula = matricula,ventanilla_id = vent.id_ventanilla, fecha_hora_debito = fecha_hora_actual, importe_debito = tarifa_pasada, numero_cuenta = cuenta_a_debitar)
                     db_conn['rdbms'].commit()
                     print('Debito exitoso.')
-
-        except IntegrityError():
+        except IntegrityError:
             db_conn['rdbms'].rollback()
             print("Error: No se pudo realizar la acreditación.")
     
